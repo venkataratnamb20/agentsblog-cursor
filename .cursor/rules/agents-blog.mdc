@@ -1,0 +1,17 @@
+---
+description: Follow AGENTS.md as the only project contract. Do not duplicate those rules in Cursor rules.
+alwaysApply: true
+---
+
+# Agents Blog
+
+Follow [AGENTS.md](../../AGENTS.md) for purpose, stack status, folder map,
+commands, git flow, coding standards, definition of done, approval gates, and
+do-not-touch paths.
+
+Do not copy those rules into this file or into other Cursor rules. If this
+rule and `AGENTS.md` disagree, `AGENTS.md` wins. Update this file so it only
+points at `AGENTS.md`.
+
+Cursor sessions stay inside the paths the task names. Leave plan files
+untouched. Do not create secrets or `.env` files.
