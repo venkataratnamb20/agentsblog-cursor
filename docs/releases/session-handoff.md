@@ -20,13 +20,16 @@ Branch: `feature/local-reader-pages` in
 | `feature/design-ia-a11y` | Merged — `docs/design/` |
 | `feature/about-subscribe-tags` | Merged — about, subscribe, tags |
 
-## Next goals that do not need Venkat
+## Next wave (agents running)
 
-- Brand identity text (no logo spend).
-- Architecture / content-model environments doc.
-- Functional/non-functional requirements (SRS) from the PRD.
-- Skip link and theme state for a11y.
-- Sample draft posts under `content/posts/` with `draft: true` only.
+| Branch | Agent role | Goal |
+| --- | --- | --- |
+| `feature/srs-requirements` | solution-architect | `docs/requirements/srs.md` |
+| `feature/brand-identity` | ux-ui-designer | `docs/design/brand-identity.md` |
+| `feature/architecture-envs` | solution-architect | `docs/architecture/system.md` |
+| `feature/a11y-skip-link` | frontend-engineer | skip link + theme aria-pressed |
+
+Primary tests: 84 passing after the about/PRD/design merge.
 
 Do not publish, deploy, create accounts, or spend.
 
