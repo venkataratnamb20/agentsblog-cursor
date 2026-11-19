@@ -10,13 +10,17 @@ from agentsblog.feed import render_feed
 from agentsblog.legal import policy_pages
 from agentsblog.posts import Post, load_posts
 from agentsblog.render import (
+    render_about,
     render_index,
     render_not_found,
     render_page,
     render_post,
     render_search,
+    render_subscribe,
+    render_tag_page,
 )
 from agentsblog.seo import render_robots, render_sitemap
+from agentsblog.tags import tag_groups
 
 _CONTENT = Path("content") / "posts"
 _OUTPUT = Path("build")
@@ -80,6 +84,7 @@ def build_site(
     _write_text(output_dir / "search.html", render_search())
     _write_post_pages(output_dir / "posts", published, site_url)
     _write_text(output_dir / "404.html", render_not_found())
+    _write_reader_pages(output_dir, published)
     _write_policies(output_dir)
     _write_text(output_dir / "search-index.json", _search_index(published))
     _write_text(output_dir / "feed.xml", render_feed(published, site_url))
@@ -182,10 +187,25 @@ def _public_paths(posts: list[Post]) -> list[str]:
     Returns:
         Root-relative paths. The not-found page is omitted.
     """
-    paths = ["/", "/search.html", "/feed.xml"]
+    paths = ["/", "/search.html", "/about.html", "/subscribe.html", "/feed.xml"]
     paths.extend(f"/{page.filename}" for page in policy_pages())
+    paths.extend(f"/tags/{slug}.html" for slug, _label, _posts in tag_groups(posts))
     paths.extend(f"/posts/{post.slug}.html" for post in posts)
     return paths
+
+
+def _write_reader_pages(output_dir: Path, posts: list[Post]) -> None:
+    """Write the about page, the subscribe page, and tag pages.
+
+    Args:
+        output_dir: Build destination.
+        posts: Published posts. The caller omits drafts.
+    """
+    _write_text(output_dir / "about.html", render_about())
+    _write_text(output_dir / "subscribe.html", render_subscribe())
+    for slug, label, tagged in tag_groups(posts):
+        document = render_tag_page(label, tagged)
+        _write_text(output_dir / "tags" / f"{slug}.html", document)
 
 
 def _write_policies(output_dir: Path) -> None:
