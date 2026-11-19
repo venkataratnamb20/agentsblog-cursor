@@ -15,6 +15,12 @@ class IndexPost(Protocol):
     draft: bool
 
 
+_FEED_LINK = (
+    '<link rel="alternate" type="application/rss+xml" '
+    'href="/feed.xml" title="Agents Blog">'
+)
+
+
 _THEME_SCRIPT = """\
 <script>
 document.getElementById("theme-toggle").addEventListener("click", function () {
@@ -50,6 +56,7 @@ def _document(title: str, main: str) -> str:
         '<meta charset="utf-8">'
         f"<title>{title}</title>"
         '<link rel="stylesheet" href="/assets/site.css">'
+        f"{_FEED_LINK}"
         "</head>"
         "<body>"
         f"<main>{main}</main>"

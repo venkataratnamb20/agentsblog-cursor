@@ -6,6 +6,7 @@ import json
 import shutil
 from pathlib import Path
 
+from agentsblog.feed import render_feed
 from agentsblog.posts import Post, load_posts
 from agentsblog.render import (
     render_index,
@@ -16,6 +17,7 @@ from agentsblog.render import (
 
 _CONTENT = Path("content") / "posts"
 _OUTPUT = Path("build")
+_DEFAULT_SITE_URL = "http://127.0.0.1:8000"
 _STYLESHEET = """\
 :root {
   color-scheme: light dark;
@@ -49,7 +51,11 @@ body {
 """
 
 
-def build_site(content_dir: Path, output_dir: Path) -> None:
+def build_site(
+    content_dir: Path,
+    output_dir: Path,
+    site_url: str = _DEFAULT_SITE_URL,
+) -> None:
     """Write the static site for one content directory.
 
     Published posts become the index, post pages, and the search
@@ -70,6 +76,7 @@ def build_site(content_dir: Path, output_dir: Path) -> None:
     _write_post_pages(output_dir / "posts", published)
     _write_text(output_dir / "404.html", render_not_found())
     _write_text(output_dir / "search-index.json", _search_index(published))
+    _write_text(output_dir / "feed.xml", render_feed(published, site_url))
     _write_text(output_dir / "assets" / "site.css", _STYLESHEET)
 
 
