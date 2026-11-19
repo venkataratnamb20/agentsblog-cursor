@@ -7,7 +7,12 @@ import shutil
 from pathlib import Path
 
 from agentsblog.posts import Post, load_posts
-from agentsblog.render import render_index, render_not_found, render_post
+from agentsblog.render import (
+    render_index,
+    render_not_found,
+    render_post,
+    render_search,
+)
 
 _CONTENT = Path("content") / "posts"
 _OUTPUT = Path("build")
@@ -46,6 +51,7 @@ def build_site(content_dir: Path, output_dir: Path) -> None:
     published = _published(posts)
     _prepare_output(output_dir)
     _write_text(output_dir / "index.html", render_index(posts))
+    _write_text(output_dir / "search.html", render_search())
     _write_post_pages(output_dir / "posts", published)
     _write_text(output_dir / "404.html", render_not_found())
     _write_text(output_dir / "search-index.json", _search_index(published))
