@@ -28,14 +28,12 @@ $Target = $Target.Trim()
 
 $pending = @{
     setup      = 'setup: will install project dependencies once the stack is chosen'
-    dev        = 'dev: will start the local development server once the stack is chosen'
     lint       = 'lint: no-op until the stack lands; will enforce zero lint warnings'
     format     = 'format: will format sources with Prettier and ruff once the stack is chosen'
     typecheck  = 'typecheck: no-op until the stack lands; will run the strict type checker'
     'test-e2e' = 'test-e2e: will run end-to-end tests once the stack is chosen'
     'test-bdd' = 'test-bdd: will run Gherkin journeys (subscribe, read post, search) once the stack is chosen'
     coverage   = 'coverage: no-op until the stack lands; core logic target is 100 percent and the CI gate is 80 percent'
-    preview    = 'preview: will serve the production build once the stack is chosen'
     audit      = 'audit: will audit dependencies once the stack is chosen'
     release    = 'release: will cut a versioned release once the stack is chosen'
     clean      = 'clean: will remove local build artifacts once the stack is chosen'
@@ -81,6 +79,18 @@ if ($Target -eq 'build') {
         exit (Get-NativeExitCode)
     }
     exit $compileStatus
+}
+
+if ($Target -eq 'dev' -or $Target -eq 'preview') {
+    $srcPath = Join-Path $PSScriptRoot 'src'
+    if ([string]::IsNullOrEmpty($env:PYTHONPATH)) {
+        $env:PYTHONPATH = $srcPath
+    } else {
+        $env:PYTHONPATH = "$srcPath$([IO.Path]::PathSeparator)$env:PYTHONPATH"
+    }
+    Write-Output 'python -m agentsblog.preview'
+    & python -m agentsblog.preview
+    exit (Get-NativeExitCode)
 }
 
 if ($pending.ContainsKey($Target)) {
