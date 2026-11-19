@@ -1,0 +1,25 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+.venv/
+
+# Build output
+dist/
+
+# Coverage
+coverage/
+.coverage
+htmlcov/
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
