@@ -88,6 +88,8 @@ Land changes through a pull request. One review is required, and required checks
 
 The branch model, merge rules, and review rules are in [docs/guidelines/git-workflow.md](guidelines/git-workflow.md).
 
+The GitHub repository is https://github.com/venkataratnamb20/agentsblog-cursor. [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs the test suite and the local site builder on every push and pull request. [`.github/workflows/cd.yml`](../.github/workflows/cd.yml) packages `build/` as an artifact on `main`. Neither workflow publishes the site.
+
 Coding standards are in [docs/guidelines/code-quality.md](guidelines/code-quality.md).
 
 ## Agent harness

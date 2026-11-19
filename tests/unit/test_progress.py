@@ -58,6 +58,10 @@ IN_PROGRESS: dict[str, tuple[str, ...]] = {
     "define-agent-operating-model-task-template-handoffs-definition-of-done": (
         "docs/governance/operating-model.md",
     ),
+    "set-up-cicd-pipeline-with-preview-deploys-rollback": (
+        ".github/workflows/ci.yml",
+        ".github/workflows/cd.yml",
+    ),
 }
 
 NOT_STARTED: tuple[str, ...] = (
@@ -82,7 +86,6 @@ NOT_STARTED: tuple[str, ...] = (
     "integrate-privacy-friendly-analytics-cookie-consent-uk-gdpr-pecr",
     "m3-feature-complete-on-staging",
     "provision-hosting-environments-staging-prod-domain-https",
-    "set-up-cicd-pipeline-with-preview-deploys-rollback",
     "integrate-newsletter-signup-double-opt-in-welcome-email-rss",
     "site-search-404-error-pages",
     "implement-technical-seo-metadata-open-graph-schemaorg-sitemap-robots-canonicals",
@@ -216,13 +219,13 @@ class TestProgressRecord(unittest.TestCase):
     """Verify the honest status of every parent task."""
 
     def test_parent_task_inventory_includes_m0(self) -> None:
-        """Count 11 partial tasks and 84 not-started tasks, including M0.
+        """Count 12 partial tasks and 83 not-started tasks, including M0.
 
         94 other parent tasks plus M0 is 95 task files, plus the index.
         """
         slugs = _task_slugs()
-        self.assertEqual(len(IN_PROGRESS), 11)
-        self.assertEqual(len(NOT_STARTED), 84)
+        self.assertEqual(len(IN_PROGRESS), 12)
+        self.assertEqual(len(NOT_STARTED), 83)
         self.assertEqual(len(slugs), 95)
         self.assertEqual(len(set(slugs)), 95)
         self.assertIn("m0-agent-harness-team-governance-ready", NOT_STARTED)

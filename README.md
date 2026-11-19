@@ -6,6 +6,8 @@ Stack-agnostic project scaffold. The application stack is not chosen yet. The di
 
 The public site is not live. `.\make.ps1 build` writes a local static site into `build/`. Hosting is still undecided.
 
+Repository: https://github.com/venkataratnamb20/agentsblog-cursor
+
 - [Developers](docs/developers.md)
 - [Users](docs/users.md)
 - [Manual tests](docs/testing/manual-tests.md)

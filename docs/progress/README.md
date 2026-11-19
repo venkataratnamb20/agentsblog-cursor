@@ -1,8 +1,8 @@
 # Progress
 
-The product site was not built. Only the harness documents for stages 0A and 0B were started. Hosting, CI, and posts do not exist.
+The product site was not built. Only the harness documents for stages 0A and 0B were started. Hosting and posts do not exist. GitHub Actions tests the repo and packages the local build. It does not publish the site.
 
-This index uses three status words: Not started, In progress, and Done. No task is Done. Eleven parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 84, including M0, are Not started.
+This index uses three status words: Not started, In progress, and Done. No task is Done. Twelve parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 83, including M0, are Not started.
 
 | Task | Status |
 | --- | --- |
@@ -17,6 +17,7 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `define-human-in-the-loop-approval-gates-agent-guardrails` | In progress |
 | `set-up-secrets-access-management-for-agents` | In progress |
 | `define-agent-operating-model-task-template-handoffs-definition-of-done` | In progress |
+| `set-up-cicd-pipeline-with-preview-deploys-rollback` | In progress |
 | `verify-harness-end-to-end-in-all-four-tools-smoke-test` | Not started |
 | `m0-agent-harness-team-governance-ready` | Not started |
 | `write-prd-problem-audience-features-scope-success-metrics` | Not started |
@@ -38,7 +39,6 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `integrate-privacy-friendly-analytics-cookie-consent-uk-gdpr-pecr` | Not started |
 | `m3-feature-complete-on-staging` | Not started |
 | `provision-hosting-environments-staging-prod-domain-https` | Not started |
-| `set-up-cicd-pipeline-with-preview-deploys-rollback` | Not started |
 | `integrate-newsletter-signup-double-opt-in-welcome-email-rss` | Not started |
 | `site-search-404-error-pages` | Not started |
 | `implement-technical-seo-metadata-open-graph-schemaorg-sitemap-robots-canonicals` | Not started |
