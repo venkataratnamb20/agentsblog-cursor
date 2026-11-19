@@ -96,6 +96,10 @@ IN_PROGRESS: dict[str, tuple[str, ...]] = {
     "define-test-strategy-quality-gates-code-review-standards": (
         "docs/testing/test-strategy.md",
     ),
+    "threat-model-security-requirements": (
+        "docs/security/threat-model.md",
+        "docs/security/requirements.md",
+    ),
 }
 
 NOT_STARTED: tuple[str, ...] = (
@@ -104,7 +108,6 @@ NOT_STARTED: tuple[str, ...] = (
     "write-prd-problem-audience-features-scope-success-metrics",
     "define-content-pillars-topic-taxonomy-pillars-tags-series",
     "design-system-architecture-content-model-environments",
-    "threat-model-security-requirements",
     "write-requirements-spec-functional-non-functional-srs",
     "m1-specifications-approved-prd-requirements-architecture-security-test-plans",
     "define-seo-analytics-kpi-kpm-tracking-spec",
@@ -243,13 +246,13 @@ class TestProgressRecord(unittest.TestCase):
     """Verify the honest status of every parent task."""
 
     def test_parent_task_inventory_includes_m0(self) -> None:
-        """Count 22 partial tasks and 73 not-started tasks, including M0.
+        """Count 23 partial tasks and 72 not-started tasks, including M0.
 
         94 other parent tasks plus M0 is 95 task files, plus the index.
         """
         slugs = _task_slugs()
-        self.assertEqual(len(IN_PROGRESS), 22)
-        self.assertEqual(len(NOT_STARTED), 73)
+        self.assertEqual(len(IN_PROGRESS), 23)
+        self.assertEqual(len(NOT_STARTED), 72)
         self.assertEqual(len(slugs), 95)
         self.assertEqual(len(set(slugs)), 95)
         self.assertIn("m0-agent-harness-team-governance-ready", NOT_STARTED)
