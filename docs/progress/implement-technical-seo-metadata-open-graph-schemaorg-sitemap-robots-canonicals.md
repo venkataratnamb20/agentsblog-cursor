@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `src/agentsblog/seo.py` (file) exists.
 
 ## Remaining
 
-Technical SEO is not implemented. There is no metadata, Open Graph, schema.org, sitemap, robots file, or canonical setup on a site.
+- The build writes robots.txt, a sitemap, canonical URLs, Open Graph tags, and schema.org data. The default origin is the local preview until a public host is chosen.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

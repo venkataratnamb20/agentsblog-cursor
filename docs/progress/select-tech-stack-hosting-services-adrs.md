@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/adr/0002-python-stdlib-site.md` (file) exists.
 
 ## Remaining
 
-No ADR selects the application stack, hosting, or services. ADR 0001 accepts the task runner only. The stack stays unknown.
+- The local site builder is the Python standard library. Hosting and package managers are still undecided.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

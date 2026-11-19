@@ -1,8 +1,8 @@
 # Progress
 
-The product site was not built. Only the harness documents for stages 0A and 0B were started. Hosting and posts do not exist. GitHub Actions tests the repo and packages the local build. It does not publish the site.
+The product site was not built. Harness documents for stages 0A and 0B were started, and a local Python site builder now writes pages for preview. Hosting is undecided and no post is published. GitHub Actions tests the repo and packages the local build. It does not publish the site.
 
-This index uses three status words: Not started, In progress, and Done. No task is Done. Twelve parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 83, including M0, are Not started.
+This index uses three status words: Not started, In progress, and Done. No task is Done. Twenty-one parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 74, including M0, are Not started.
 
 | Task | Status |
 | --- | --- |
@@ -22,7 +22,7 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `m0-agent-harness-team-governance-ready` | Not started |
 | `write-prd-problem-audience-features-scope-success-metrics` | Not started |
 | `define-content-pillars-topic-taxonomy-pillars-tags-series` | Not started |
-| `select-tech-stack-hosting-services-adrs` | Not started |
+| `select-tech-stack-hosting-services-adrs` | In progress |
 | `define-test-strategy-quality-gates-code-review-standards` | Not started |
 | `design-system-architecture-content-model-environments` | Not started |
 | `threat-model-security-requirements` | Not started |
@@ -34,19 +34,19 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `brand-identity-name-tagline-logo-colours-typography-cover-template` | Not started |
 | `design-system-accessibility-spec-wcag-22-aa` | Not started |
 | `m2-design-approved` | Not started |
-| `implement-content-model-authoring-workflow-markdown-mdx` | Not started |
-| `build-site-templates-components-responsive-dark-mode` | Not started |
+| `implement-content-model-authoring-workflow-markdown-mdx` | In progress |
+| `build-site-templates-components-responsive-dark-mode` | In progress |
 | `integrate-privacy-friendly-analytics-cookie-consent-uk-gdpr-pecr` | Not started |
 | `m3-feature-complete-on-staging` | Not started |
 | `provision-hosting-environments-staging-prod-domain-https` | Not started |
-| `integrate-newsletter-signup-double-opt-in-welcome-email-rss` | Not started |
-| `site-search-404-error-pages` | Not started |
-| `implement-technical-seo-metadata-open-graph-schemaorg-sitemap-robots-canonicals` | Not started |
-| `legal-policy-pages-privacy-cookies-terms-licences-ai-assistance-disclosure` | Not started |
+| `integrate-newsletter-signup-double-opt-in-welcome-email-rss` | In progress |
+| `site-search-404-error-pages` | In progress |
+| `implement-technical-seo-metadata-open-graph-schemaorg-sitemap-robots-canonicals` | In progress |
+| `legal-policy-pages-privacy-cookies-terms-licences-ai-assistance-disclosure` | In progress |
 | `production-readiness-review-go-no-go` | Not started |
 | `m4-quality-gates-passed-go-for-launch` | Not started |
 | `cross-browser-responsive-testing` | Not started |
-| `automated-test-suite-unit-integration-e2e-visual-regression` | Not started |
+| `automated-test-suite-unit-integration-e2e-visual-regression` | In progress |
 | `seo-audit` | Not started |
 | `security-vulnerability-checklist` | Not started |
 | `privacy-compliance-check` | Not started |
@@ -100,4 +100,4 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `m9-q1-review-kpis-reader-feedback-roadmap-refresh` | Not started |
 | `kpi-kpm-dashboard-asana-dashboard-analytics` | Not started |
 | `agent-performance-retrospective-quality-rework-cycle-time` | Not started |
-| `fortnightly-project-status-updates` | Not started |
+| `fortnightly-project-status-updates` | In progress |

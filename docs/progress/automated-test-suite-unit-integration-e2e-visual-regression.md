@@ -2,12 +2,15 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `tests/unit` (directory) exists.
+- `tests/integration` (directory) exists.
 
 ## Remaining
 
-The product suite (unit, integration, end-to-end, and visual regression) has not been built. Scaffold tests are not that suite.
+- Unit and integration tests cover the local builder. End-to-end tests and visual regression are not implemented. `test-e2e` still prints a message.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

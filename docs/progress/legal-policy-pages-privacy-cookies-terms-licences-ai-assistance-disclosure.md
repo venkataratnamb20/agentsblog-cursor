@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `src/agentsblog/legal.py` (file) exists.
 
 ## Remaining
 
-Privacy, cookies, terms, licences, and an AI-assistance disclosure have not been written.
+- Privacy, cookies, terms, licences, and AI-assistance pages are generated as drafts.
+- Venkat has not approved these pages for publication.
+- Exit criteria are not met.

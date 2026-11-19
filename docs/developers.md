@@ -1,6 +1,6 @@
 # Developers
 
-Agents Blog is a harness and documentation scaffold. The blog application, hosting, continuous integration, and posts are not built. Hosting and package managers stay undecided. The local site builder is the Python standard library ([ADR 0002](adr/0002-python-stdlib-site.md)). [ADR 0001](adr/0001-task-runner.md) chooses `Makefile` and `make.ps1` as the task runners.
+Agents Blog is a harness plus a local static site. The public site is not live. Hosting and package managers stay undecided. The local site builder is the Python standard library ([ADR 0002](adr/0002-python-stdlib-site.md)). [ADR 0001](adr/0001-task-runner.md) chooses `Makefile` and `make.ps1` as the task runners. GitHub Actions runs the tests and packages `build/`. It does not publish the site. No post is published.
 
 ## Prerequisites
 

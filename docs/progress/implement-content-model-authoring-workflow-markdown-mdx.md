@@ -2,12 +2,15 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `src/agentsblog/posts.py` (file) exists.
+- `src/agentsblog/markdown.py` (file) exists.
 
 ## Remaining
 
-No content model or Markdown/MDX authoring workflow is implemented. The stack is not chosen. `content/` has no posts.
+- Front matter and a small Markdown subset (headings and paragraphs) load and render. MDX and the rest of the authoring workflow are not in place.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

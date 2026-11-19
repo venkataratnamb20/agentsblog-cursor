@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `src/agentsblog/feed.py` (file) exists.
 
 ## Remaining
 
-Newsletter signup, double opt-in, a welcome email, and RSS are not integrated.
+- The build writes an RSS feed of published posts and skips drafts. Double opt-in and the welcome email need an email service. Creating that account waits on approval.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.
