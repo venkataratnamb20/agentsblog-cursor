@@ -46,7 +46,7 @@ Windows:
 .\make.ps1 build
 ```
 
-`.\make.ps1 test` runs the test suite. `.\make.ps1 build` compiles `scripts` and `tests` and exits with the compiler status.
+`.\make.ps1 test` runs the test suite. `.\make.ps1 build` compiles `scripts` and `tests`, then writes the local site into `build/` when `src/agentsblog/build.py` is present.
 
 macOS and Linux:
 
