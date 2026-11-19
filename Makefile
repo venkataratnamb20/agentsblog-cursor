@@ -7,7 +7,7 @@ setup:
 	@echo "setup: will install project dependencies once the stack is chosen"
 
 dev:
-	@echo "dev: will start the local development server once the stack is chosen"
+	PYTHONPATH=src python3 -m agentsblog.preview
 
 lint:
 	@echo "lint: no-op until the stack lands; will enforce zero lint warnings"
@@ -35,7 +35,7 @@ build:
 	@if [ -f src/agentsblog/build.py ]; then PYTHONPATH=src python3 -m agentsblog.build; fi
 
 preview:
-	@echo "preview: will serve the production build once the stack is chosen"
+	PYTHONPATH=src python3 -m agentsblog.preview
 
 audit:
 	@echo "audit: will audit dependencies once the stack is chosen"
