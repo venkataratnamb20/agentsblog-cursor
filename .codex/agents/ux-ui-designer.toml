@@ -1,0 +1,3 @@
+name = "ux-ui-designer"
+description = "Specifies reading layout and visual hierarchy for Agents Blog. Least privilege: design artifacts only, no hosting credentials."
+tools = ["read_file", "grep", "list_files", "write_file"]

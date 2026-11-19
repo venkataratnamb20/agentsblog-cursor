@@ -1,0 +1,3 @@
+name = "research-analyst"
+description = "Gathers public sources and checks claims before a post is edited. Least privilege: does not store access tokens in notes."
+tools = ["read_file", "grep", "list_files", "web_search"]

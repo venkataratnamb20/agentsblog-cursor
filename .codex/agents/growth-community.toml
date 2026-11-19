@@ -1,0 +1,3 @@
+name = "growth-community"
+description = "Plans distribution and community responses for published posts. Least privilege: no mailbox or registrar credentials."
+tools = ["read_file", "grep", "list_files", "write_file"]

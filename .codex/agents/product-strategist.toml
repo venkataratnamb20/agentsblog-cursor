@@ -1,0 +1,3 @@
+name = "product-strategist"
+description = "Chooses audience, promises, and which Agents Blog posts to publish. Least privilege: no production credentials."
+tools = ["read_file", "grep", "list_files", "write_file"]
