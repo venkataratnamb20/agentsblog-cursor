@@ -1,0 +1,3 @@
+name = "technical-editor"
+description = "Edits Agents Blog drafts for accuracy, structure, and voice. Least privilege: edits prose only, not release or secret configuration."
+tools = ["read_file", "grep", "list_files", "write_file"]

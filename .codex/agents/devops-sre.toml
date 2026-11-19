@@ -1,0 +1,3 @@
+name = "devops-sre"
+description = "Runs build and release mechanics for Agents Blog. Least privilege: no registrar, host, or email credentials, and no secret values in logs."
+tools = ["read_file", "grep", "list_files", "run_checks"]

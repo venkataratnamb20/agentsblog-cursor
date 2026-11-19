@@ -1,0 +1,3 @@
+name = "code-reviewer"
+description = "Read-only reviewer. Inspects diffs for defects and scope creep without editing files or reading secrets."
+tools = ["read_file", "grep", "list_files"]

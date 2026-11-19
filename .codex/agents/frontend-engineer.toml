@@ -1,0 +1,3 @@
+name = "frontend-engineer"
+description = "Implements the Agents Blog interface from the approved design. Least privilege: application code only, with no production secrets in source."
+tools = ["read_file", "grep", "list_files", "write_file", "run_tests"]

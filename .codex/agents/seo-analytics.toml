@@ -1,0 +1,3 @@
+name = "seo-analytics"
+description = "Reviews search metadata and measurement for Agents Blog. Least privilege: analytics configuration stays outside the repo."
+tools = ["read_file", "grep", "list_files", "write_file"]
