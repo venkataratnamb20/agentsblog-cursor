@@ -6,6 +6,8 @@ import html
 from collections.abc import Iterable
 from typing import Protocol
 
+from agentsblog.seo import LOCAL_SITE_URL, index_metadata, post_metadata
+
 
 class IndexPost(Protocol):
     """Fields the index reads from a post."""
@@ -39,12 +41,13 @@ class ArticlePost(Protocol):
     body: str
 
 
-def _document(title: str, main: str) -> str:
+def _document(title: str, main: str, head: str = "") -> str:
     """Wrap a page title and main content in the shared document.
 
     Args:
         title: Document title. Callers pass already escaped text.
         main: Inner HTML placed in the document body.
+        head: Extra escaped elements for the document head.
 
     Returns:
         A complete HTML document.
@@ -57,6 +60,7 @@ def _document(title: str, main: str) -> str:
         f"<title>{title}</title>"
         '<link rel="stylesheet" href="/assets/site.css">'
         f"{_FEED_LINK}"
+        f"{head}"
         "</head>"
         "<body>"
         f"<main>{main}</main>"
@@ -89,13 +93,17 @@ def render_search() -> str:
     return _document(heading, main)
 
 
-def render_index(posts: Iterable[IndexPost]) -> str:
+def render_index(
+    posts: Iterable[IndexPost],
+    site_url: str = LOCAL_SITE_URL,
+) -> str:
     """Render the index of published posts.
 
     Args:
         posts: Posts that expose title, slug, and draft. Only posts
             whose draft flag is false are listed. Each published title
             links to ``posts/{slug}.html``.
+        site_url: Absolute origin used for the canonical URL.
 
     Returns:
         The index document as HTML.
@@ -111,15 +119,20 @@ def render_index(posts: Iterable[IndexPost]) -> str:
         )
     listing = "<ul>" + "".join(items) + "</ul>"
     search_link = '<p><a href="search.html">Search</a></p>'
-    return _document("Agents Blog", search_link + listing)
+    return _document(
+        "Agents Blog",
+        search_link + listing,
+        head=index_metadata(site_url),
+    )
 
 
-def render_post(post: ArticlePost) -> str:
+def render_post(post: ArticlePost, site_url: str = LOCAL_SITE_URL) -> str:
     """Render one post as an HTML page.
 
     Args:
         post: Post whose title becomes the heading and whose body is
             shown as text. ``<`` and ``&`` in both fields are escaped.
+        site_url: Absolute origin used for the canonical URL.
 
     Returns:
         The post document as HTML.
@@ -127,7 +140,14 @@ def render_post(post: ArticlePost) -> str:
     safe_title = html.escape(post.title)
     safe_body = html.escape(post.body)
     content = f"<article><h1>{safe_title}</h1><p>{safe_body}</p></article>"
-    return _document(safe_title, content)
+    metadata = post_metadata(
+        title=post.title,
+        summary=getattr(post, "summary", ""),
+        slug=getattr(post, "slug", ""),
+        date=getattr(post, "date", ""),
+        site_url=site_url,
+    )
+    return _document(safe_title, content, head=metadata)
 
 
 _SEARCH_SCRIPT = """\

@@ -14,6 +14,7 @@ from agentsblog.render import (
     render_post,
     render_search,
 )
+from agentsblog.seo import render_robots, render_sitemap
 
 _CONTENT = Path("content") / "posts"
 _OUTPUT = Path("build")
@@ -67,16 +68,19 @@ def build_site(
         content_dir: Directory of markdown posts.
         output_dir: Directory that receives the built site. Existing
             contents are replaced.
+        site_url: Absolute origin used for feeds, canonical URLs, and
+            the sitemap. Defaults to the local preview origin.
     """
     posts = _load_posts(content_dir)
     published = _published(posts)
     _prepare_output(output_dir)
-    _write_text(output_dir / "index.html", render_index(posts))
+    _write_text(output_dir / "index.html", render_index(posts, site_url))
     _write_text(output_dir / "search.html", render_search())
-    _write_post_pages(output_dir / "posts", published)
+    _write_post_pages(output_dir / "posts", published, site_url)
     _write_text(output_dir / "404.html", render_not_found())
     _write_text(output_dir / "search-index.json", _search_index(published))
     _write_text(output_dir / "feed.xml", render_feed(published, site_url))
+    _write_discovery(output_dir, published, site_url)
     _write_text(output_dir / "assets" / "site.css", _STYLESHEET)
 
 
@@ -131,16 +135,53 @@ def _prepare_output(output_dir: Path) -> None:
     output_dir.mkdir(parents=True)
 
 
-def _write_post_pages(posts_dir: Path, posts: list[Post]) -> None:
+def _write_post_pages(
+    posts_dir: Path,
+    posts: list[Post],
+    site_url: str,
+) -> None:
     """Write one HTML file for each post.
 
     Args:
         posts_dir: Directory that receives ``{slug}.html`` files.
         posts: Posts to publish. The caller omits drafts.
+        site_url: Absolute origin used for canonical URLs.
     """
     for post in posts:
         page = posts_dir / f"{post.slug}.html"
-        _write_text(page, render_post(post))
+        _write_text(page, render_post(post, site_url))
+
+
+def _write_discovery(
+    output_dir: Path,
+    posts: list[Post],
+    site_url: str,
+) -> None:
+    """Write robots.txt and sitemap.xml for published pages.
+
+    Args:
+        output_dir: Build destination.
+        posts: Published posts. The caller omits drafts.
+        site_url: Absolute origin.
+    """
+    origin = site_url.rstrip("/")
+    locations = [f"{origin}{path}" for path in _public_paths(posts)]
+    _write_text(output_dir / "robots.txt", render_robots(origin))
+    _write_text(output_dir / "sitemap.xml", render_sitemap(locations))
+
+
+def _public_paths(posts: list[Post]) -> list[str]:
+    """Return site paths that belong in the sitemap.
+
+    Args:
+        posts: Published posts. The caller omits drafts.
+
+    Returns:
+        Root-relative paths. The not-found page is omitted.
+    """
+    paths = ["/", "/search.html", "/feed.xml"]
+    paths.extend(f"/posts/{post.slug}.html" for post in posts)
+    return paths
 
 
 def _search_index(posts: list[Post]) -> str:
