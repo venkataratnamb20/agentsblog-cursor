@@ -14,7 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 PROGRESS_DIR = REPO_ROOT / "docs" / "progress"
 
 # Slugs are the parent-task names: lowercase, spaces as hyphens,
-# punctuation dropped. These eleven have a document or script on disk.
+# punctuation dropped. These tasks have a document or script on disk.
 # Venkat has not approved them, and their exit criteria are not met.
 IN_PROGRESS: dict[str, tuple[str, ...]] = {
     "git-branching-model-pr-workflow-main-develop-feature-release-hotfix": (
@@ -62,6 +62,37 @@ IN_PROGRESS: dict[str, tuple[str, ...]] = {
         ".github/workflows/ci.yml",
         ".github/workflows/cd.yml",
     ),
+    "select-tech-stack-hosting-services-adrs": (
+        "docs/adr/0002-python-stdlib-site.md",
+    ),
+    "automated-test-suite-unit-integration-e2e-visual-regression": (
+        "tests/unit",
+        "tests/integration",
+    ),
+    "implement-content-model-authoring-workflow-markdown-mdx": (
+        "src/agentsblog/posts.py",
+        "src/agentsblog/markdown.py",
+    ),
+    "build-site-templates-components-responsive-dark-mode": (
+        "src/agentsblog/build.py",
+        "src/agentsblog/render.py",
+    ),
+    "integrate-newsletter-signup-double-opt-in-welcome-email-rss": (
+        "src/agentsblog/feed.py",
+    ),
+    "site-search-404-error-pages": (
+        "src/agentsblog/search.py",
+        "src/agentsblog/render.py",
+    ),
+    "implement-technical-seo-metadata-open-graph-schemaorg-sitemap-robots-canonicals": (
+        "src/agentsblog/seo.py",
+    ),
+    "legal-policy-pages-privacy-cookies-terms-licences-ai-assistance-disclosure": (
+        "src/agentsblog/legal.py",
+    ),
+    "fortnightly-project-status-updates": (
+        "docs/progress/fortnightly-project-status-updates.md",
+    ),
 }
 
 NOT_STARTED: tuple[str, ...] = (
@@ -69,7 +100,6 @@ NOT_STARTED: tuple[str, ...] = (
     "m0-agent-harness-team-governance-ready",
     "write-prd-problem-audience-features-scope-success-metrics",
     "define-content-pillars-topic-taxonomy-pillars-tags-series",
-    "select-tech-stack-hosting-services-adrs",
     "define-test-strategy-quality-gates-code-review-standards",
     "design-system-architecture-content-model-environments",
     "threat-model-security-requirements",
@@ -81,19 +111,12 @@ NOT_STARTED: tuple[str, ...] = (
     "brand-identity-name-tagline-logo-colours-typography-cover-template",
     "design-system-accessibility-spec-wcag-22-aa",
     "m2-design-approved",
-    "implement-content-model-authoring-workflow-markdown-mdx",
-    "build-site-templates-components-responsive-dark-mode",
     "integrate-privacy-friendly-analytics-cookie-consent-uk-gdpr-pecr",
     "m3-feature-complete-on-staging",
     "provision-hosting-environments-staging-prod-domain-https",
-    "integrate-newsletter-signup-double-opt-in-welcome-email-rss",
-    "site-search-404-error-pages",
-    "implement-technical-seo-metadata-open-graph-schemaorg-sitemap-robots-canonicals",
-    "legal-policy-pages-privacy-cookies-terms-licences-ai-assistance-disclosure",
     "production-readiness-review-go-no-go",
     "m4-quality-gates-passed-go-for-launch",
     "cross-browser-responsive-testing",
-    "automated-test-suite-unit-integration-e2e-visual-regression",
     "seo-audit",
     "security-vulnerability-checklist",
     "privacy-compliance-check",
@@ -147,7 +170,6 @@ NOT_STARTED: tuple[str, ...] = (
     "m9-q1-review-kpis-reader-feedback-roadmap-refresh",
     "kpi-kpm-dashboard-asana-dashboard-analytics",
     "agent-performance-retrospective-quality-rework-cycle-time",
-    "fortnightly-project-status-updates",
 )
 
 
@@ -219,13 +241,13 @@ class TestProgressRecord(unittest.TestCase):
     """Verify the honest status of every parent task."""
 
     def test_parent_task_inventory_includes_m0(self) -> None:
-        """Count 12 partial tasks and 83 not-started tasks, including M0.
+        """Count 21 partial tasks and 74 not-started tasks, including M0.
 
         94 other parent tasks plus M0 is 95 task files, plus the index.
         """
         slugs = _task_slugs()
-        self.assertEqual(len(IN_PROGRESS), 12)
-        self.assertEqual(len(NOT_STARTED), 83)
+        self.assertEqual(len(IN_PROGRESS), 21)
+        self.assertEqual(len(NOT_STARTED), 74)
         self.assertEqual(len(slugs), 95)
         self.assertEqual(len(set(slugs)), 95)
         self.assertIn("m0-agent-harness-team-governance-ready", NOT_STARTED)
