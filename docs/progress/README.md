@@ -2,7 +2,7 @@
 
 The product site was not built. Harness documents for stages 0A and 0B were started, and a local Python site builder now writes pages for preview. Hosting is undecided and no post is published. GitHub Actions tests the repo and packages the local build. It does not publish the site.
 
-This index uses three status words: Not started, In progress, and Done. No task is Done. Twenty-one parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 74, including M0, are Not started.
+This index uses three status words: Not started, In progress, and Done. No task is Done. Twenty-two parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 73, including M0, are Not started.
 
 | Task | Status |
 | --- | --- |
@@ -23,7 +23,7 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `write-prd-problem-audience-features-scope-success-metrics` | Not started |
 | `define-content-pillars-topic-taxonomy-pillars-tags-series` | Not started |
 | `select-tech-stack-hosting-services-adrs` | In progress |
-| `define-test-strategy-quality-gates-code-review-standards` | Not started |
+| `define-test-strategy-quality-gates-code-review-standards` | In progress |
 | `design-system-architecture-content-model-environments` | Not started |
 | `threat-model-security-requirements` | Not started |
 | `write-requirements-spec-functional-non-functional-srs` | Not started |
