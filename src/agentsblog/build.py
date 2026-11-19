@@ -7,10 +7,12 @@ import shutil
 from pathlib import Path
 
 from agentsblog.feed import render_feed
+from agentsblog.legal import policy_pages
 from agentsblog.posts import Post, load_posts
 from agentsblog.render import (
     render_index,
     render_not_found,
+    render_page,
     render_post,
     render_search,
 )
@@ -78,6 +80,7 @@ def build_site(
     _write_text(output_dir / "search.html", render_search())
     _write_post_pages(output_dir / "posts", published, site_url)
     _write_text(output_dir / "404.html", render_not_found())
+    _write_policies(output_dir)
     _write_text(output_dir / "search-index.json", _search_index(published))
     _write_text(output_dir / "feed.xml", render_feed(published, site_url))
     _write_discovery(output_dir, published, site_url)
@@ -180,8 +183,20 @@ def _public_paths(posts: list[Post]) -> list[str]:
         Root-relative paths. The not-found page is omitted.
     """
     paths = ["/", "/search.html", "/feed.xml"]
+    paths.extend(f"/{page.filename}" for page in policy_pages())
     paths.extend(f"/posts/{post.slug}.html" for post in posts)
     return paths
+
+
+def _write_policies(output_dir: Path) -> None:
+    """Write the draft policy pages.
+
+    Args:
+        output_dir: Build destination.
+    """
+    for page in policy_pages():
+        document = render_page(page.title, page.main)
+        _write_text(output_dir / page.filename, document)
 
 
 def _search_index(posts: list[Post]) -> str:

@@ -6,6 +6,7 @@ import html
 from collections.abc import Iterable
 from typing import Protocol
 
+from agentsblog.markdown import render_markdown
 from agentsblog.seo import LOCAL_SITE_URL, index_metadata, post_metadata
 
 
@@ -15,6 +16,13 @@ class IndexPost(Protocol):
     title: str
     slug: str
     draft: bool
+
+
+_NAV = (
+    '<nav><a href="/">Home</a> '
+    '<a href="/search.html">Search</a> '
+    '<a href="/privacy.html">Privacy</a></nav>'
+)
 
 
 _FEED_LINK = (
@@ -63,6 +71,7 @@ def _document(title: str, main: str, head: str = "") -> str:
         f"{head}"
         "</head>"
         "<body>"
+        f"{_NAV}"
         f"<main>{main}</main>"
         '<button id="theme-toggle" type="button">Toggle theme</button>'
         f"{_THEME_SCRIPT}"
@@ -138,8 +147,9 @@ def render_post(post: ArticlePost, site_url: str = LOCAL_SITE_URL) -> str:
         The post document as HTML.
     """
     safe_title = html.escape(post.title)
-    safe_body = html.escape(post.body)
-    content = f"<article><h1>{safe_title}</h1><p>{safe_body}</p></article>"
+    content = (
+        f"<article><h1>{safe_title}</h1>{render_markdown(post.body)}</article>"
+    )
     metadata = post_metadata(
         title=post.title,
         summary=getattr(post, "summary", ""),
@@ -189,6 +199,19 @@ _SEARCH_SCRIPT = """\
 })();
 </script>
 """
+
+
+def render_page(title: str, main: str) -> str:
+    """Render a standalone page with the shared document chrome.
+
+    Args:
+        title: Visible title. This function escapes it.
+        main: Inner HTML. The caller escapes any untrusted text.
+
+    Returns:
+        A complete HTML document.
+    """
+    return _document(html.escape(title), f"<h1>{html.escape(title)}</h1>{main}")
 
 
 def render_not_found() -> str:
