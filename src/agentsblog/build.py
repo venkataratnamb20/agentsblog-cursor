@@ -19,6 +19,21 @@ _OUTPUT = Path("build")
 _STYLESHEET = """\
 :root {
   color-scheme: light dark;
+  background: #f7f4ef;
+  color: #1c1915;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  background: #1c1915;
+  color: #f7f4ef;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    background: #1c1915;
+    color: #f7f4ef;
+  }
 }
 
 body {

@@ -15,6 +15,17 @@ class IndexPost(Protocol):
     draft: bool
 
 
+_THEME_SCRIPT = """\
+<script>
+document.getElementById("theme-toggle").addEventListener("click", function () {
+  var root = document.documentElement;
+  var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+});
+</script>
+"""
+
+
 class ArticlePost(Protocol):
     """Fields a single post page reads from a post."""
 
@@ -43,6 +54,7 @@ def _document(title: str, main: str) -> str:
         "<body>"
         f"<main>{main}</main>"
         '<button id="theme-toggle" type="button">Toggle theme</button>'
+        f"{_THEME_SCRIPT}"
         "</body>"
         "</html>"
     )
