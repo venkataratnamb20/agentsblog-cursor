@@ -64,7 +64,23 @@ if ($Target -eq 'sync-agents') {
 if ($Target -eq 'build') {
     Write-Output 'python -m compileall -q scripts tests'
     & python -m compileall -q scripts tests
-    exit (Get-NativeExitCode)
+    $compileStatus = Get-NativeExitCode
+    if ($compileStatus -ne 0) {
+        exit $compileStatus
+    }
+    $siteBuilder = Join-Path $PSScriptRoot 'src/agentsblog/build.py'
+    if (Test-Path -LiteralPath $siteBuilder -PathType Leaf) {
+        $srcPath = Join-Path $PSScriptRoot 'src'
+        if ([string]::IsNullOrEmpty($env:PYTHONPATH)) {
+            $env:PYTHONPATH = $srcPath
+        } else {
+            $env:PYTHONPATH = "$srcPath$([IO.Path]::PathSeparator)$env:PYTHONPATH"
+        }
+        Write-Output 'python -m agentsblog.build'
+        & python -m agentsblog.build
+        exit (Get-NativeExitCode)
+    }
+    exit $compileStatus
 }
 
 if ($pending.ContainsKey($Target)) {

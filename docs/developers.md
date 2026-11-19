@@ -1,6 +1,6 @@
 # Developers
 
-Agents Blog is a harness and documentation scaffold. The blog application, hosting, continuous integration, and posts are not built. The stack is not chosen. [ADR 0001](adr/0001-task-runner.md) only chooses `Makefile` and `make.ps1` as the task runners.
+Agents Blog is a harness and documentation scaffold. The blog application, hosting, continuous integration, and posts are not built. Hosting and package managers stay undecided. The local site builder is the Python standard library ([ADR 0002](adr/0002-python-stdlib-site.md)). [ADR 0001](adr/0001-task-runner.md) chooses `Makefile` and `make.ps1` as the task runners.
 
 ## Prerequisites
 
@@ -43,14 +43,14 @@ Both entry points share these targets: `setup`, `dev`, `lint`, `format`, `typech
 | `test-e2e` | Prints that end-to-end tests will run once the stack is chosen. |
 | `test-bdd` | Prints that Gherkin journeys will run once the stack is chosen. |
 | `coverage` | Prints a no-op message. The future core-logic target is 100 percent, and the CI gate is 80 percent. |
-| `build` | Prints that a production build will be produced once the stack is chosen. |
+| `build` | Compiles `scripts` and `tests`, then runs the local site builder when `src/agentsblog/build.py` exists. |
 | `preview` | Prints that the production build will be served once the stack is chosen. |
 | `audit` | Prints that dependencies will be audited once the stack is chosen. |
 | `sync-agents` | Copies `.agents/skills` to `.claude/skills` as files. |
 | `release` | Prints that a versioned release will be cut once the stack is chosen. It does not deploy. |
 | `clean` | Prints that local build artifacts will be removed once the stack is chosen. |
 
-A target that still needs a toolchain prints that future behavior and exits 0. `test` and `sync-agents` do their work today.
+A target that still needs a toolchain prints that future behavior and exits 0. `test`, `build`, and `sync-agents` do their work today.
 
 Run the tests on Windows:
 
@@ -58,13 +58,15 @@ Run the tests on Windows:
 .\make.ps1 test
 ```
 
-Ask for a production build on Windows. Until the stack exists, this prints the future build step and exits 0:
+On macOS and Linux the same test target is `make test`.
+
+## Local site
+
+`.\make.ps1 build` compiles `scripts` and `tests` with `python -m compileall`, then runs `python -m agentsblog.build` only when `src/agentsblog/build.py` exists. When that file is absent, the site step is skipped and the target exits with the compileall status. On macOS and Linux, `make build` uses `python3` for the same steps. Hosting and package managers stay undecided. The decision is [ADR 0002](adr/0002-python-stdlib-site.md).
 
 ```powershell
 .\make.ps1 build
 ```
-
-On macOS and Linux the same names are `make test` and `make build`.
 
 ## Test suite
 
