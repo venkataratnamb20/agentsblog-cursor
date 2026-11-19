@@ -4,7 +4,7 @@ Stack-agnostic project scaffold. The application stack is not chosen yet. The di
 
 ## Status
 
-The blog application is not built yet.
+The public site is not live. `.\make.ps1 build` writes a local static site into `build/`. Hosting is still undecided.
 
 - [Developers](docs/developers.md)
 - [Users](docs/users.md)

@@ -35,7 +35,7 @@ Both entry points share these targets: `setup`, `dev`, `lint`, `format`, `typech
 | Target | What it does today |
 | --- | --- |
 | `setup` | Prints that dependencies will be installed once the stack is chosen. |
-| `dev` | Prints that the local development server will start once the stack is chosen. |
+| `dev` | Serves the local `build/` directory on 127.0.0.1 port 8000. |
 | `lint` | Prints a no-op message. It will enforce zero lint warnings once the stack lands. |
 | `format` | Prints that sources will be formatted with Prettier and ruff once the stack is chosen. |
 | `typecheck` | Prints a no-op message until the strict type checker exists. |
@@ -44,13 +44,13 @@ Both entry points share these targets: `setup`, `dev`, `lint`, `format`, `typech
 | `test-bdd` | Prints that Gherkin journeys will run once the stack is chosen. |
 | `coverage` | Prints a no-op message. The future core-logic target is 100 percent, and the CI gate is 80 percent. |
 | `build` | Compiles `scripts` and `tests`, then runs the local site builder when `src/agentsblog/build.py` exists. |
-| `preview` | Prints that the production build will be served once the stack is chosen. |
+| `preview` | Serves the local `build/` directory on 127.0.0.1 port 8000. |
 | `audit` | Prints that dependencies will be audited once the stack is chosen. |
 | `sync-agents` | Copies `.agents/skills` to `.claude/skills` as files. |
 | `release` | Prints that a versioned release will be cut once the stack is chosen. It does not deploy. |
 | `clean` | Prints that local build artifacts will be removed once the stack is chosen. |
 
-A target that still needs a toolchain prints that future behavior and exits 0. `test`, `build`, and `sync-agents` do their work today.
+A target that still needs a toolchain prints that future behavior and exits 0. `test`, `build`, `dev`, `preview`, and `sync-agents` do their work today. `dev` and `preview` keep running until you stop them.
 
 Run the tests on Windows:
 
