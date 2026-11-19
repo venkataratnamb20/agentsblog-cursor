@@ -32,6 +32,7 @@ coverage:
 
 build:
 	python3 -m compileall -q scripts tests
+	@if [ -f src/agentsblog/build.py ]; then PYTHONPATH=src python3 -m agentsblog.build; fi
 
 preview:
 	@echo "preview: will serve the production build once the stack is chosen"

@@ -19,12 +19,16 @@ publishes them. Publishing is an approval gate, not a git action.
 
 ## Stack
 
-The stack is not chosen yet. Do not pick a framework, language runtime, host,
-or package manager in code or in docs while this is still true.
+The local site builder is the Python standard library. See
+[docs/adr/0002-python-stdlib-site.md](docs/adr/0002-python-stdlib-site.md).
+Hosting and package managers stay undecided. `build` runs the builder only
+when `src/agentsblog/build.py` exists.
 
-Architecture decisions will be recorded as ADRs in stage 1, under `docs/adr/`.
-Until an ADR is accepted, treat the stack as unknown. The command names below
-are stable. Their implementations arrive with the stack.
+Cursor setup is in `.cursor` and follows this file. Claude loads this file
+through `CLAUDE.md`. Codex and Antigravity are out of scope for this build.
+
+Architecture decisions are recorded as ADRs under `docs/adr/`. The command
+names below are stable. Their implementations arrive with the stack.
 
 ## Folder map
 
