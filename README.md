@@ -2,6 +2,15 @@
 
 Stack-agnostic project scaffold. The application stack is not chosen yet. The directories below are the shared contract for source, content, tests, docs, research, and scripts.
 
+## Status
+
+The blog application is not built yet.
+
+- [Developers](docs/developers.md)
+- [Users](docs/users.md)
+- [Manual tests](docs/testing/manual-tests.md)
+- [Progress](docs/progress/README.md)
+
 ## Layout
 
 | Path | Purpose |
@@ -33,12 +42,18 @@ Windows:
 
 ```powershell
 .\make.ps1
+.\make.ps1 test
+.\make.ps1 build
 ```
+
+`.\make.ps1 test` runs the test suite. `.\make.ps1 build` compiles `scripts` and `tests` and exits with the compiler status.
 
 macOS and Linux:
 
 ```sh
 make
+make test
+make build
 ```
 
 Setup and the test suite must pass. An empty suite is a pass. The scaffold check uses the Python standard library and does not depend on an application framework.

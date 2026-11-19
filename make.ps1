@@ -35,7 +35,6 @@ $pending = @{
     'test-e2e' = 'test-e2e: will run end-to-end tests once the stack is chosen'
     'test-bdd' = 'test-bdd: will run Gherkin journeys (subscribe, read post, search) once the stack is chosen'
     coverage   = 'coverage: no-op until the stack lands; core logic target is 100 percent and the CI gate is 80 percent'
-    build      = 'build: will produce a production build once the stack is chosen'
     preview    = 'preview: will serve the production build once the stack is chosen'
     audit      = 'audit: will audit dependencies once the stack is chosen'
     release    = 'release: will cut a versioned release once the stack is chosen'
@@ -60,6 +59,12 @@ if ($Target -eq 'sync-agents') {
     }
     Write-Output 'sync-agents: scripts/sync-agents.ps1 not found; nothing to sync'
     exit 0
+}
+
+if ($Target -eq 'build') {
+    Write-Output 'python -m compileall -q scripts tests'
+    & python -m compileall -q scripts tests
+    exit (Get-NativeExitCode)
 }
 
 if ($pending.ContainsKey($Target)) {

@@ -31,7 +31,7 @@ coverage:
 	@echo "coverage: no-op until the stack lands; core logic target is 100 percent and the CI gate is 80 percent"
 
 build:
-	@echo "build: will produce a production build once the stack is chosen"
+	python3 -m compileall -q scripts tests
 
 preview:
 	@echo "preview: will serve the production build once the stack is chosen"
