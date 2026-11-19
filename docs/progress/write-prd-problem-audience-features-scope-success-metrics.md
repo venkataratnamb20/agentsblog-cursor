@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/product/prd.md` (file) exists.
 
 ## Remaining
 
-A PRD for problem, audience, features, scope, and success metrics has not been written. `docs/prd/` has no PRD.
+- The PRD names problem, audience, local features, approval-gated features, scope, and success metrics. Metrics are targets, not measured results. Hosting is undecided.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

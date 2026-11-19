@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/design/wireframes.md` (file) exists.
 
 ## Remaining
 
-Wireframes for home, post, pillar, about, subscribe, and 404 have not been drawn.
+- Text wireframes cover home, post, tag, about, subscribe, and 404. High-fidelity visual comps are not done. Subscribe has no email form.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

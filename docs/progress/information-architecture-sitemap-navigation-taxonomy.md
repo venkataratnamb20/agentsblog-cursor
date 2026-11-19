@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/design/information-architecture.md` (file) exists.
 
 ## Remaining
 
-The sitemap, navigation, and taxonomy have not been designed.
+- The local sitemap and navigation are specified. There is no public host.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

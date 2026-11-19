@@ -100,21 +100,31 @@ IN_PROGRESS: dict[str, tuple[str, ...]] = {
         "docs/security/threat-model.md",
         "docs/security/requirements.md",
     ),
+    "write-prd-problem-audience-features-scope-success-metrics": (
+        "docs/product/prd.md",
+    ),
+    "define-content-pillars-topic-taxonomy-pillars-tags-series": (
+        "docs/product/content-pillars.md",
+    ),
+    "information-architecture-sitemap-navigation-taxonomy": (
+        "docs/design/information-architecture.md",
+    ),
+    "wireframes-high-fidelity-ui-home-post-pillar-about-subscribe-404": (
+        "docs/design/wireframes.md",
+    ),
+    "design-system-accessibility-spec-wcag-22-aa": (
+        "docs/design/accessibility.md",
+    ),
 }
 
 NOT_STARTED: tuple[str, ...] = (
     "verify-harness-end-to-end-in-all-four-tools-smoke-test",
     "m0-agent-harness-team-governance-ready",
-    "write-prd-problem-audience-features-scope-success-metrics",
-    "define-content-pillars-topic-taxonomy-pillars-tags-series",
     "design-system-architecture-content-model-environments",
     "write-requirements-spec-functional-non-functional-srs",
     "m1-specifications-approved-prd-requirements-architecture-security-test-plans",
     "define-seo-analytics-kpi-kpm-tracking-spec",
-    "information-architecture-sitemap-navigation-taxonomy",
-    "wireframes-high-fidelity-ui-home-post-pillar-about-subscribe-404",
     "brand-identity-name-tagline-logo-colours-typography-cover-template",
-    "design-system-accessibility-spec-wcag-22-aa",
     "m2-design-approved",
     "integrate-privacy-friendly-analytics-cookie-consent-uk-gdpr-pecr",
     "m3-feature-complete-on-staging",
@@ -246,13 +256,13 @@ class TestProgressRecord(unittest.TestCase):
     """Verify the honest status of every parent task."""
 
     def test_parent_task_inventory_includes_m0(self) -> None:
-        """Count 23 partial tasks and 72 not-started tasks, including M0.
+        """Count 28 partial tasks and 67 not-started tasks, including M0.
 
         94 other parent tasks plus M0 is 95 task files, plus the index.
         """
         slugs = _task_slugs()
-        self.assertEqual(len(IN_PROGRESS), 23)
-        self.assertEqual(len(NOT_STARTED), 72)
+        self.assertEqual(len(IN_PROGRESS), 28)
+        self.assertEqual(len(NOT_STARTED), 67)
         self.assertEqual(len(slugs), 95)
         self.assertEqual(len(set(slugs)), 95)
         self.assertIn("m0-agent-harness-team-governance-ready", NOT_STARTED)

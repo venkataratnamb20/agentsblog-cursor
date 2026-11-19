@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/product/content-pillars.md` (file) exists.
 
 ## Remaining
 
-Content pillars, tags, and series are not defined.
+- Pillars, tags, and series are proposed. No post is published. Series have no URLs yet.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

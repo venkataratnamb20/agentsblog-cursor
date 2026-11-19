@@ -1,13 +1,15 @@
-# Design System Accessibility Spec WCAG 22 AA
+# Design System Accessibility Spec WCAG 2.2 AA
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/design/accessibility.md` (file) exists.
 
 ## Remaining
 
-A design system and a WCAG 2.2 AA accessibility spec have not been written.
+- The WCAG 2.2 AA target and local checks are written. A skip link and a theme state for assistive tech are still required. The site is not audited.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.
