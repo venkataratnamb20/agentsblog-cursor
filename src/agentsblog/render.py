@@ -8,6 +8,7 @@ from typing import Protocol
 
 from agentsblog.markdown import render_markdown
 from agentsblog.seo import LOCAL_SITE_URL, index_metadata, post_metadata
+from agentsblog.tags import tag_slug
 
 
 class IndexPost(Protocol):
@@ -21,6 +22,8 @@ class IndexPost(Protocol):
 _NAV = (
     '<nav><a href="/">Home</a> '
     '<a href="/search.html">Search</a> '
+    '<a href="/about.html">About</a> '
+    '<a href="/subscribe.html">Subscribe</a> '
     '<a href="/privacy.html">Privacy</a></nav>'
 )
 
@@ -148,7 +151,8 @@ def render_post(post: ArticlePost, site_url: str = LOCAL_SITE_URL) -> str:
     """
     safe_title = html.escape(post.title)
     content = (
-        f"<article><h1>{safe_title}</h1>{render_markdown(post.body)}</article>"
+        f"<article><h1>{safe_title}</h1>{_tag_links(post)}"
+        f"{render_markdown(post.body)}</article>"
     )
     metadata = post_metadata(
         title=post.title,
@@ -199,6 +203,71 @@ _SEARCH_SCRIPT = """\
 })();
 </script>
 """
+
+
+def render_about() -> str:
+    """Render the about page.
+
+    Returns:
+        HTML that names the audience and says the public site is not live.
+    """
+    main = (
+        "<p>Agents Blog is a technical blog on AI agents for "
+        "engineers, researchers, and tech leads.</p>"
+        "<p>The public site is not live.</p>"
+    )
+    return render_page("About", main)
+
+
+def render_subscribe() -> str:
+    """Render the subscribe page without collecting an email.
+
+    Returns:
+        HTML that says signup waits on an approved email service.
+    """
+    sentence = "subscribe is blocked until an email service is approved."
+    return render_page("Subscribe", f"<p>{html.escape(sentence)}</p>")
+
+
+def render_tag_page(label: str, posts: Iterable[IndexPost]) -> str:
+    """Render the posts that share one tag.
+
+    Args:
+        label: Tag text shown as the heading.
+        posts: Published posts in reader order.
+
+    Returns:
+        A page of links to those posts.
+    """
+    items = [
+        "<li>"
+        f'<a href="/posts/{html.escape(post.slug)}.html">'
+        f"{html.escape(post.title)}</a></li>"
+        for post in posts
+    ]
+    return render_page(label, "<ul>" + "".join(items) + "</ul>")
+
+
+def _tag_links(post: ArticlePost) -> str:
+    """Render links from a post to its tag pages.
+
+    Args:
+        post: Post that may expose ``tags``.
+
+    Returns:
+        A paragraph of links, or an empty string when there are none.
+    """
+    links: list[str] = []
+    for tag in getattr(post, "tags", ()):
+        slug = tag_slug(str(tag))
+        if not slug:
+            continue
+        links.append(
+            f'<a href="/tags/{slug}.html">{html.escape(str(tag))}</a>'
+        )
+    if not links:
+        return ""
+    return "<p>" + " ".join(links) + "</p>"
 
 
 def render_page(title: str, main: str) -> str:
