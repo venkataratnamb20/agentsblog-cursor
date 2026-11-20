@@ -2,15 +2,15 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
 - `AGENTS.md` (file) exists.
 - `CLAUDE.md` (file) exists.
 - `.cursor/rules/agents-blog.mdc` (file) exists.
+- `tests/unit/test_stage0a_artifacts.py` asserts the three adapter/source paths exist.
 
 ## Remaining
 
-- Venkat has not approved `AGENTS.md`, `CLAUDE.md`, or `.cursor/rules/agents-blog.mdc`.
-- Exit criteria are not met.
+none

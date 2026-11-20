@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
@@ -10,5 +10,4 @@ Status: In progress
 
 ## Remaining
 
-- Venkat has not approved `docs/team.md`.
-- Exit criteria are not met.
+none

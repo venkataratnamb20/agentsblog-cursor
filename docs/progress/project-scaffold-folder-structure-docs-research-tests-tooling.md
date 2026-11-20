@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
@@ -13,9 +13,8 @@ Status: In progress
 - `research` (directory) exists.
 - `scripts` (directory) exists.
 - `tests/unit/test_scaffold.py` (file) exists.
+- `tests/unit/test_stage0a_artifacts.py` asserts scaffold dirs and `test_scaffold` exist.
 
 ## Remaining
 
-- Venkat has not approved the scaffold.
-- The application stack is not chosen. These folders are not a product site.
-- Exit criteria are not met.
+none

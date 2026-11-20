@@ -2,12 +2,13 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/architecture/system.md` (file) exists.
+- `docs/architecture/system.md` documents local builder modules under `src/agentsblog/`, the markdown + front-matter content model, and environments (local preview active; staging and production undecided and gated).
 
 ## Remaining
 
-System architecture, the content model, and environments have not been designed.
+none

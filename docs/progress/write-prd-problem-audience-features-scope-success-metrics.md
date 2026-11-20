@@ -2,12 +2,17 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/product/prd.md` names problem, audience (AI engineers / researchers /
+  tech leads), in-scope local preview features aligned with the Python
+  stdlib builder, explicit out-of-scope and approval gates, and success
+  metrics split into measurable-now (local build, draft discipline) vs
+  not-measured-until-public-launch (published posts, subscribers, WCAG).
+  No claim of a published site or hosting.
 
 ## Remaining
 
-A PRD for problem, audience, features, scope, and success metrics has not been written. `docs/prd/` has no PRD.
+none

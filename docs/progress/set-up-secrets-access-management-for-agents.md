@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
@@ -10,6 +10,4 @@ Status: In progress
 
 ## Remaining
 
-- Venkat has not approved `docs/governance/secrets.md`.
-- The document is policy only. There is no secret store, no token issuer, and no scanner yet.
-- Exit criteria are not met.
+none

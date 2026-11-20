@@ -2,12 +2,17 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- Checklist gate: [docs/guidelines/code-review.md](../guidelines/code-review.md)
+- Unit proof: [tests/unit/test_code_review_checklist.py](../../tests/unit/test_code_review_checklist.py)
+- RED: `python -m unittest tests.unit.test_code_review_checklist -v` failed on missing `docs/guidelines/code-review.md`
+- GREEN: same command — 1 test OK
 
 ## Remaining
 
-A checklist applied to every pull request is not an operating gate yet. No product pull requests have been reviewed against it.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.
+- No product pull request has been reviewed against this checklist yet.

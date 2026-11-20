@@ -14,6 +14,10 @@ Agents Blog needs one set of task names for setup, local development, checks, te
 
 Windows needs a native PowerShell entrypoint that runs without WSL. A fresh clone should be able to run those tasks with the shell the OS already provides. An extra task-runner install, or a symlink that pretends one file serves every shell, would stop that clone from working.
 
+This ADR chooses only how targets are invoked. The local site builder is
+[ADR 0002](0002-python-stdlib-site.md). Hosting, package managers, and
+newsletter remain undecided there.
+
 ## Decision
 
 Ship two thin entrypoints that share the same target names:
@@ -44,6 +48,8 @@ An unknown `make.ps1` target prints usage and exits 1. `make` reports an unknown
 - `Makefile` and `make.ps1` stay aligned whenever a target is added or its behavior changes.
 - Placeholder targets stay visible in the output, and they still exit 0 so local scripts and CI can call them before the stack exists.
 - Contributors on Windows do not need WSL to reach the same target names.
+- Choosing a host, package manager, or newsletter service is out of scope for
+  this ADR; see ADR 0002 for what remains undecided.
 
 ## Rejected alternative
 

@@ -2,12 +2,15 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/seo/measurement.md` names local KPIs and KPMs, the local origin
+  `http://127.0.0.1:8000`, public metrics that wait for a host, and Venkat
+  approval gates. It stores no analytics credential and names no analytics
+  vendor.
 
 ## Remaining
 
-An SEO, analytics, KPI, and KPM tracking spec has not been written.
+none
