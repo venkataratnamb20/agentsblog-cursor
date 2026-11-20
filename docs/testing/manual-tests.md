@@ -17,9 +17,8 @@ Commands below use `.\make.ps1`. The stack is not chosen yet, so some targets on
 
 - [ ] Steps:
   1. From the repository root, run `.\make.ps1 build`.
-  2. Leave `make.ps1` unchanged. On this branch `build` is still a no-op: it prints that a production build waits until the stack is chosen, and it does not compile Python.
-  3. Compile the Python that exists today: `python -m compileall -q scripts tests`.
-- Expected result: compileall exits 0.
+  2. Open `build/index.html`, `build/search.html`, `build/feed.xml`, and `build/privacy.html`.
+- Expected result: the command exits 0. It compiles `scripts` and `tests`, then writes the local site. `privacy.html` says Venkat has not approved it for publication.
 
 ### `python -m unittest discover -s tests -v` exits 0
 
@@ -64,10 +63,10 @@ Commands below use `.\make.ps1`. The stack is not chosen yet, so some targets on
   2. Do not launch those tools for this checklist.
 - Expected result: the four-tool smoke test (Claude Code, Codex, Cursor, Antigravity) is listed as not run.
 
-### Site journeys are blocked
+### Site journeys on the local preview
 
-subscribe, read post, and search are blocked until the site exists.
+read post and search work on the local preview. subscribe is blocked until an email service is approved.
 
-- [ ] Subscribe. Steps: do not submit an email. There is no site to accept it. Expected result: subscribe is blocked until the site exists.
-- [ ] Read post. Steps: do not open a published URL. `content/posts/` has no live page. Expected result: read post is blocked until the site exists.
-- [ ] Search. Steps: do not query a site search box. Expected result: search is blocked until the site exists.
+- [ ] Subscribe. Steps: do not submit an email. There is no email service. Expected result: subscribe is blocked until an email service is approved.
+- [ ] Read post. Steps: add a published markdown file under `content/posts/`, run `.\make.ps1 build`, and open `build/posts/<slug>.html`. Expected result: the title and body are shown. Do not publish the post.
+- [ ] Search. Steps: run `.\make.ps1 preview` and open `http://127.0.0.1:8000/search.html`. Type a word from a published title. Expected result: that post is listed. A blank query lists nothing.

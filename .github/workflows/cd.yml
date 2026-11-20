@@ -3,14 +3,54 @@ name: CD
 on:
   push:
     branches:
+      - develop
       - main
   workflow_dispatch:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  package:
+  deploy-staging:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Build the staging site
+        env:
+          AGENTSBLOG_INCLUDE_DRAFTS: "1"
+          AGENTSBLOG_NOINDEX: "1"
+          AGENTSBLOG_SITE_URL: https://venkataratnamb20.github.io/agentsblog-cursor
+          AGENTSBLOG_BASE_PATH: /agentsblog-cursor
+        run: PYTHONPATH=src python -m agentsblog.build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  package-main:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -21,7 +61,10 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Build the local site
+      - name: Build the production site
+        env:
+          AGENTSBLOG_SITE_URL: https://venkataratnamb20.github.io/agentsblog-cursor
+          AGENTSBLOG_BASE_PATH: /agentsblog-cursor
         run: PYTHONPATH=src python -m agentsblog.build
 
       - name: Upload the site artifact

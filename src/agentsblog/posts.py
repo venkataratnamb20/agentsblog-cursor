@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
 _FENCE = "---"
 _TRUE = "true"
+_IMAGE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 
 
 @dataclass(frozen=True)
@@ -21,6 +23,9 @@ class Post:
         summary: Short description from front matter.
         body: Markdown after the closing front-matter fence.
         draft: Whether the post is unpublished.
+        series: Optional series label. Empty when the post stands alone.
+        series_part: One-based part number inside the series, or zero.
+        series_total: Total parts in the series, or zero.
     """
 
     title: str
@@ -30,6 +35,9 @@ class Post:
     summary: str
     body: str
     draft: bool
+    series: str = ""
+    series_part: int = 0
+    series_total: int = 0
 
 
 def load_posts(directory: Path) -> list[Post]:
@@ -45,7 +53,8 @@ def load_posts(directory: Path) -> list[Post]:
         Posts sorted by date, then slug.
 
     Raises:
-        ValueError: If a markdown file omits ``title``.
+        ValueError: If a markdown file omits ``title`` or includes an
+            image without alt text.
     """
     posts = [
         _load_post(path)
@@ -89,11 +98,12 @@ def _load_post(path: Path) -> Post:
         The parsed post. The slug is the filename stem.
 
     Raises:
-        ValueError: If ``title`` is missing.
+        ValueError: If ``title`` is missing or an image lacks alt text.
     """
     text = path.read_text(encoding="utf-8")
     front_matter, body = _split_document(text)
     fields = _parse_fields(front_matter)
+    _require_image_alt(body)
     return Post(
         title=_require_title(fields),
         slug=path.stem,
@@ -102,6 +112,9 @@ def _load_post(path: Path) -> Post:
         summary=fields.get("summary", "").strip(),
         body=body.strip(),
         draft=_parse_draft(fields.get("draft")),
+        series=fields.get("series", "").strip(),
+        series_part=_parse_int(fields.get("series_part")),
+        series_total=_parse_int(fields.get("series_total")),
     )
 
 
@@ -159,6 +172,21 @@ def _require_title(fields: dict[str, str]) -> str:
     return title
 
 
+def _require_image_alt(body: str) -> None:
+    """Reject markdown images that omit alt text.
+
+    Args:
+        body: Markdown after the front-matter fence.
+
+    Raises:
+        ValueError: If an image token has an empty alt string.
+    """
+    for match in _IMAGE.finditer(body):
+        if match.group(1).strip():
+            continue
+        raise ValueError("markdown image is missing alt text")
+
+
 def _parse_tags(raw_tags: str) -> tuple[str, ...]:
     """Split a comma-separated tag list.
 
@@ -186,3 +214,17 @@ def _parse_draft(raw_draft: str | None) -> bool:
     if raw_draft is None:
         return False
     return raw_draft.strip().lower() == _TRUE
+
+
+def _parse_int(raw_value: str | None) -> int:
+    """Parse an optional positive integer field.
+
+    Args:
+        raw_value: Front-matter value, or None when omitted.
+
+    Returns:
+        The integer, or zero when the field is absent or blank.
+    """
+    if raw_value is None or not raw_value.strip():
+        return 0
+    return int(raw_value.strip())

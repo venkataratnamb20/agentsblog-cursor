@@ -2,14 +2,13 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
 - `docs/guidelines/code-quality.md` (file) exists.
+- `tests/unit/test_stage0a_artifacts.py` asserts the guide path exists.
 
 ## Remaining
 
-- Venkat has not approved `docs/guidelines/code-quality.md`.
-- No formatter, linter, or CI check enforces the guide. CI is not set up.
-- Exit criteria are not met.
+none

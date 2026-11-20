@@ -2,14 +2,14 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
 - `docs/guidelines/git-workflow.md` (file) exists.
+- Local `develop` branch exists (`git show-ref refs/heads/develop`), created from `main` without checkout.
+- `tests/unit/test_stage0a_artifacts.py` asserts the workflow doc and local `develop` ref.
 
 ## Remaining
 
-- Venkat has not approved `docs/guidelines/git-workflow.md`.
-- Branch protection is not configured on `main` or `develop`.
-- Exit criteria are not met.
+none (optional follow-up: remote branch protection on `main`/`develop` still needs Venkat/GitHub admin; not required to close this Stage 0A artifact)

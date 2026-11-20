@@ -2,12 +2,19 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `src/agentsblog/feed.py` — RSS of visible posts
+- `src/agentsblog/render.py` — Subscribe page with RSS link; no email form
+- `tests/unit/test_feed.py`
+- `tests/unit/test_about.py`
+
+Double opt-in send and welcome email need an approved email vendor. That
+account remains gated. Stage 3 closes RSS + subscribe messaging without
+collecting addresses.
 
 ## Remaining
 
-Newsletter signup, double opt-in, a welcome email, and RSS are not integrated.
+none

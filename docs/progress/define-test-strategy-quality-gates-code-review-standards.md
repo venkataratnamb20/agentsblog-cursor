@@ -2,12 +2,12 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/testing/test-strategy.md` (file) exists.
 
 ## Remaining
 
-A test strategy, quality gates, and code-review standard for the product have not been written.
+none

@@ -2,12 +2,19 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `tests/unit/test_responsive.py`
+- `src/agentsblog/render.py`
+- `src/agentsblog/build.py`
+- `docs/requirements/srs.md`
 
 ## Remaining
 
-Cross-browser and responsive testing has not been run. The product site was not built.
+- No browser matrix (Chrome/Firefox/Safari) was executed.
+- No analytics vendor is integrated.
+- The public site is not live.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.
