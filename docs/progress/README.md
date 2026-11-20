@@ -2,7 +2,7 @@
 
 The product site was not built. Harness documents for stages 0A and 0B were started, and a local Python site builder now writes pages for preview. Hosting is undecided and no post is published. GitHub Actions tests the repo and packages the local build. It does not publish the site.
 
-This index uses three status words: Not started, In progress, and Done. No task is Done. Twenty-eight parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 67, including M0, are Not started.
+This index uses three status words: Not started, In progress, and Done. No task is Done. Thirty-one parent tasks are In progress because a document or script is in the repo. Venkat has not approved those tasks, and their exit criteria are not met. The other 64, including M0, are Not started.
 
 | Task | Status |
 | --- | --- |
@@ -24,14 +24,14 @@ This index uses three status words: Not started, In progress, and Done. No task 
 | `define-content-pillars-topic-taxonomy-pillars-tags-series` | In progress |
 | `select-tech-stack-hosting-services-adrs` | In progress |
 | `define-test-strategy-quality-gates-code-review-standards` | In progress |
-| `design-system-architecture-content-model-environments` | Not started |
+| `design-system-architecture-content-model-environments` | In progress |
 | `threat-model-security-requirements` | In progress |
-| `write-requirements-spec-functional-non-functional-srs` | Not started |
+| `write-requirements-spec-functional-non-functional-srs` | In progress |
 | `m1-specifications-approved-prd-requirements-architecture-security-test-plans` | Not started |
 | `define-seo-analytics-kpi-kpm-tracking-spec` | Not started |
 | `information-architecture-sitemap-navigation-taxonomy` | In progress |
 | `wireframes-high-fidelity-ui-home-post-pillar-about-subscribe-404` | In progress |
-| `brand-identity-name-tagline-logo-colours-typography-cover-template` | Not started |
+| `brand-identity-name-tagline-logo-colours-typography-cover-template` | In progress |
 | `design-system-accessibility-spec-wcag-22-aa` | In progress |
 | `m2-design-approved` | Not started |
 | `implement-content-model-authoring-workflow-markdown-mdx` | In progress |

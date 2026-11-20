@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/requirements/srs.md` (file) exists.
 
 ## Remaining
 
-A functional and non-functional requirements spec has not been written.
+- Functional and non-functional requirements for the local preview are listed with checks. Hosting and newsletter requirements are out of scope until approved.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

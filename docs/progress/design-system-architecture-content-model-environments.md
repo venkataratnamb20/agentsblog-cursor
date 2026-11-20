@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/architecture/system.md` (file) exists.
 
 ## Remaining
 
-System architecture, the content model, and environments have not been designed.
+- The local pipeline, modules, content model, and environments are described. Staging and production are not provisioned.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

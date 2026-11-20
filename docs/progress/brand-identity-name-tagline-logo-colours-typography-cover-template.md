@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/design/brand-identity.md` (file) exists.
 
 ## Remaining
 
-Name, tagline, logo, colours, typography, and a cover template are not defined.
+- Name, tagline, colours, type, and a text cover template are written. No logo file was created. A paid logo waits on approval.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.
