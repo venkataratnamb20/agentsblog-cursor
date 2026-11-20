@@ -34,13 +34,24 @@ _FEED_LINK = (
 )
 
 
+_SKIP_LINK = '<a class="skip-link" href="#main">Skip to content</a>'
+
+
 _THEME_SCRIPT = """\
 <script>
-document.getElementById("theme-toggle").addEventListener("click", function () {
-  var root = document.documentElement;
-  var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  root.setAttribute("data-theme", next);
-});
+(function () {
+  var button = document.getElementById("theme-toggle");
+  function pressed(theme) {
+    button.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  }
+  pressed(document.documentElement.getAttribute("data-theme"));
+  button.addEventListener("click", function () {
+    var root = document.documentElement;
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    pressed(next);
+  });
+})();
 </script>
 """
 
@@ -74,9 +85,11 @@ def _document(title: str, main: str, head: str = "") -> str:
         f"{head}"
         "</head>"
         "<body>"
+        f"{_SKIP_LINK}"
         f"{_NAV}"
-        f"<main>{main}</main>"
-        '<button id="theme-toggle" type="button">Toggle theme</button>'
+        f'<main id="main">{main}</main>'
+        '<button id="theme-toggle" type="button" aria-pressed="false">'
+        "Toggle theme</button>"
         f"{_THEME_SCRIPT}"
         "</body>"
         "</html>"
