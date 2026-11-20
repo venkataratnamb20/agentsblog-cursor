@@ -55,6 +55,16 @@ body {
 #theme-toggle {
   margin-top: 2rem;
 }
+
+.skip-link {
+  left: 0.5rem;
+  position: absolute;
+  top: -3rem;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
 """
 
 
