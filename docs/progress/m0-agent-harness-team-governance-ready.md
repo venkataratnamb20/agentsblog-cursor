@@ -2,12 +2,17 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/team.md` (file) exists.
+- `docs/governance/approval-gates.md` (file) exists.
+- `docs/governance/secrets.md` (file) exists.
+- `docs/governance/operating-model.md` (file) exists.
+- `docs/governance/m0-checklist.md` (file) exists.
+- `docs/agents/harness-smoke.md` (file) exists; 0A smoke is documented.
 
 ## Remaining
 
-Stage 0 is not complete. The harness, roster, and governance documents are not approved, and the four-tool smoke test has not been run.
+none

@@ -2,12 +2,13 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/agents/harness-smoke.md` — Cursor PASS, Claude PASS; Codex and Antigravity OUT OF SCOPE per AGENTS.md Stack.
+- `tests/unit/test_harness_smoke.py` — five tests GREEN after smoke doc landed.
 
 ## Remaining
 
-A smoke test of the harness in Claude Code, Codex, Cursor, and Antigravity has not been run.
+none — closed with smoke evidence

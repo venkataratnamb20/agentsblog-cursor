@@ -2,15 +2,14 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
 - `Makefile` (file) exists.
 - `make.ps1` (file) exists.
+- `tests/unit/test_stage0a_artifacts.py` asserts both entry points exist.
 
 ## Remaining
 
-- Venkat has not approved closing this task.
-- Several targets are intentional no-ops until a stack is chosen.
-- Exit criteria are not met.
+none

@@ -2,12 +2,14 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/seo/audit.md` records the local preview checks: robots.txt, sitemap.xml, canonical URLs, Open Graph, one heading, and draft exclusion. The site was not submitted to a search engine.
+- `tests/unit/test_seo_audit.py` asserts those checks against `build_site` with `site_url` omitted.
 
 ## Remaining
 
-An SEO audit has not been run. The product site was not built.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

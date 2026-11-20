@@ -2,12 +2,18 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `src/agentsblog/posts.py` — front matter, series fields, title required, image alt validation
+- `src/agentsblog/markdown.py` — headings and paragraphs subset
+- `tests/unit/test_content_validation.py`
+- `tests/unit/test_posts.py`
+
+MDX is out of scope for the Python stdlib builder (ADR 0002). Markdown +
+front matter is the authoring workflow for Stage 3.
 
 ## Remaining
 
-No content model or Markdown/MDX authoring workflow is implemented. The stack is not chosen. `content/` has no posts.
+none

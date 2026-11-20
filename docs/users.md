@@ -6,7 +6,7 @@ This page is for people who want to read Agents Blog. It says what you can do no
 
 ## What you can do today
 
-The public blog is not live. There is no domain, no posts, and no signup form yet. You cannot open the site, read a story, or join a mailing list, because those pages do not exist.
+The public blog is not live. There is no domain, no posts, and no signup form yet. A local preview can show search, an RSS feed, a dark theme, and draft policy pages. Those pages are not the public site. You cannot join a mailing list, because signup is not connected.
 
 ## Reading posts
 

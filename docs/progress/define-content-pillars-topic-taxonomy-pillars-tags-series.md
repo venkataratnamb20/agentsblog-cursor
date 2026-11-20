@@ -2,12 +2,12 @@
 
 ## Status
 
-Status: Not started
+Status: Done
 
 ## Evidence
 
-none
+- `docs/product/content-pillars.md` — five pillars (Foundations, Building, Evaluation, Safety, Operations), tags, and series aligned to `docs/product/topic-backlog.md` and `docs/editorial/calendar-2026-q1.md`. No post published.
 
 ## Remaining
 
-Content pillars, tags, and series are not defined.
+- none
