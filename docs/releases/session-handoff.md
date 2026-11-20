@@ -19,13 +19,12 @@ Branch: worktree under
 ## Live staging (verified)
 
 - URL: https://venkataratnamb20.github.io/agentsblog-cursor/
-- CI + CD green on `develop` (`3ce5cfa`)
-- Posts 1–3 drafts listed; `robots.txt` is `Disallow: /`
+- CI + CD green on `develop` (`b611889`, includes `/agentsblog-cursor` base path)
+- Posts 1–3 drafts listed; CSS/nav prefixed; `robots.txt` is `Disallow: /`
 
 ## Next
 
 - Stage 4 quality gates (`m4-quality-gates-passed-go-for-launch`).
-- Fix project-Pages asset base paths if CSS/nav break under `/agentsblog-cursor/`.
 - Tech-edit post drafts; keep `draft: true` until Venkat approves publish.
 - Custom domain, DNS, production ship, email/analytics vendors still wait.
 
