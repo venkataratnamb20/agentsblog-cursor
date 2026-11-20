@@ -37,6 +37,7 @@ jobs:
           AGENTSBLOG_INCLUDE_DRAFTS: "1"
           AGENTSBLOG_NOINDEX: "1"
           AGENTSBLOG_SITE_URL: https://venkataratnamb20.github.io/agentsblog-cursor
+          AGENTSBLOG_BASE_PATH: /agentsblog-cursor
         run: PYTHONPATH=src python -m agentsblog.build
 
       - name: Upload Pages artifact
@@ -63,6 +64,7 @@ jobs:
       - name: Build the production site
         env:
           AGENTSBLOG_SITE_URL: https://venkataratnamb20.github.io/agentsblog-cursor
+          AGENTSBLOG_BASE_PATH: /agentsblog-cursor
         run: PYTHONPATH=src python -m agentsblog.build
 
       - name: Upload the site artifact

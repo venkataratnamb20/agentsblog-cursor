@@ -13,32 +13,11 @@ from agentsblog.tags import tag_slug
 
 _TAGLINE = "Clear writing for people who build AI agents."
 _PILLARS = ("Foundations", "Building", "Evaluation", "Safety", "Operations")
-
-_NAV = (
-    '<nav><a href="/">Home</a> '
-    '<a href="/search.html">Search</a> '
-    '<a href="/about.html">About</a> '
-    '<a href="/subscribe.html">Subscribe</a> '
-    '<a href="/privacy.html">Privacy</a></nav>'
-)
-
-_FOOTER = (
-    "<footer>"
-    '<a href="/cookies.html">Cookies</a> | '
-    '<a href="/terms.html">Terms</a> | '
-    '<a href="/licences.html">Licences</a> | '
-    '<a href="/ai-assistance.html">AI assistance</a>'
-    "</footer>"
-)
+_BASE_PATH = ""
 
 _THEME_TOGGLE = (
     '<button id="theme-toggle" type="button" aria-pressed="false">'
     "Toggle theme</button>"
-)
-
-_FEED_LINK = (
-    '<link rel="alternate" type="application/rss+xml" '
-    'href="/feed.xml" title="Agents Blog">'
 )
 
 _SKIP_LINK = '<a class="skip-link" href="#main">Skip to content</a>'
@@ -83,6 +62,64 @@ class ArticlePost(Protocol):
     body: str
 
 
+def set_base_path(path: str) -> None:
+    """Set the site base path for root-absolute links.
+
+    Args:
+        path: Prefix such as ``/agentsblog-cursor``, or empty for local.
+    """
+    global _BASE_PATH
+    cleaned = path.strip()
+    if cleaned.endswith("/"):
+        cleaned = cleaned[:-1]
+    _BASE_PATH = cleaned
+
+
+def _href(path: str) -> str:
+    """Prefix a root-absolute path with the configured base path.
+
+    Args:
+        path: A site path beginning with ``/``.
+
+    Returns:
+        The path with ``_BASE_PATH`` prepended when configured.
+    """
+    if not path.startswith("/"):
+        return path
+    return f"{_BASE_PATH}{path}"
+
+
+def _nav() -> str:
+    """Return the primary navigation with the current base path."""
+    return (
+        f'<nav><a href="{_href("/")}">Home</a> '
+        f'<a href="{_href("/search.html")}">Search</a> '
+        f'<a href="{_href("/about.html")}">About</a> '
+        f'<a href="{_href("/subscribe.html")}">Subscribe</a> '
+        f'<a href="{_href("/privacy.html")}">Privacy</a></nav>'
+    )
+
+
+def _footer() -> str:
+    """Return the policy footer with the current base path."""
+    return (
+        "<footer>"
+        f'<a href="{_href("/cookies.html")}">Cookies</a> | '
+        f'<a href="{_href("/terms.html")}">Terms</a> | '
+        f'<a href="{_href("/licences.html")}">Licences</a> | '
+        f'<a href="{_href("/ai-assistance.html")}">AI assistance</a>'
+        "</footer>"
+    )
+
+
+def _feed_link() -> str:
+    """Return the RSS alternate link with the current base path."""
+    return (
+        '<link rel="alternate" type="application/rss+xml" '
+        f'href="{_href("/feed.xml")}" title="Agents Blog">'
+    )
+
+
 def _document(
     title: str,
     main: str,
@@ -105,17 +142,17 @@ def _document(
         '<meta charset="utf-8">'
         f"{_VIEWPORT}"
         f"<title>{title}</title>"
-        '<link rel="stylesheet" href="/assets/site.css">'
-        f"{_FEED_LINK}"
+        f'<link rel="stylesheet" href="{_href("/assets/site.css")}">'
+        f"{_feed_link()}"
         f"{head}"
         "</head>"
         "<body>"
         f"{_SKIP_LINK}"
         f"{consent_markup()}"
-        f"{_NAV}"
+        f"{_nav()}"
         f"{_THEME_TOGGLE}"
         f'<main id="main">{main}</main>'
-        f"{_FOOTER}"
+        f"{_footer()}"
         f"{_THEME_SCRIPT}"
         "</body>"
         "</html>"
@@ -125,21 +162,25 @@ def _document(
 def render_search() -> str:
     """Render the page a reader uses to search published posts.
 
-    The page loads ``/search-index.json`` and lists matches in the
-    order of that file. A blank query leaves the result list empty.
-    Matching is a case-insensitive substring of the title, summary,
-    or a tag, the same rule as ``search_posts``.
+    The page loads the search index and lists matches in the order of
+    that file. A blank query leaves the result list empty.
 
     Returns:
         The search document as HTML.
     """
     heading = html.escape("Search")
+    index_url = _href("/search-index.json")
+    post_prefix = _href("/posts/")
+    script = _SEARCH_SCRIPT.replace("__INDEX_URL__", index_url).replace(
+        "__POST_PREFIX__",
+        post_prefix,
+    )
     main = (
         f"<h1>{heading}</h1>"
         '<label for="search-query">Search posts</label>'
         '<input id="search-query" type="search" name="q">'
         '<ul id="search-results"></ul>'
-        f"{_SEARCH_SCRIPT}"
+        f"{script}"
     )
     return _document(heading, main)
 
@@ -153,8 +194,6 @@ def render_index(
 
     Args:
         posts: Posts that expose title, slug, date, summary, and draft.
-            Only posts whose draft flag is false are listed unless the
-            caller already filtered the list.
         site_url: Absolute origin used for the canonical URL.
         noindex: When True, ask crawlers not to index the page.
 
@@ -191,7 +230,7 @@ def render_post(
 
     Args:
         post: Post whose title becomes the heading and whose body is
-            shown as text. ``<`` and ``&`` in both fields are escaped.
+            shown as text.
         site_url: Absolute origin used for the canonical URL.
         noindex: When True, ask crawlers not to index the page.
 
@@ -223,7 +262,7 @@ _SEARCH_SCRIPT = """\
   var input = document.getElementById("search-query");
   var results = document.getElementById("search-results");
   var posts = [];
-  fetch("/search-index.json").then(function (response) {
+  fetch("__INDEX_URL__").then(function (response) {
     return response.json();
   }).then(function (records) {
     posts = records;
@@ -240,7 +279,7 @@ _SEARCH_SCRIPT = """\
       }
       var item = document.createElement("li");
       var link = document.createElement("a");
-      link.href = "posts/" + post.slug + ".html";
+      link.href = "__POST_PREFIX__" + post.slug + ".html";
       link.textContent = post.title;
       item.appendChild(link);
       results.appendChild(item);
@@ -280,11 +319,12 @@ def render_subscribe() -> str:
     Returns:
         HTML that says signup waits on an approved email service.
     """
+    feed = _href("/feed.xml")
     main = (
         "<p>Subscribe is blocked until an email service is approved.</p>"
         "<p>There is no signup form on this page. Check back after "
         "Venkat approves an email provider.</p>"
-        '<p>RSS: <a href="/feed.xml">/feed.xml</a></p>'
+        f'<p>RSS: <a href="{feed}">{html.escape(feed)}</a></p>'
     )
     return render_page("Subscribe", main)
 
@@ -300,9 +340,7 @@ def render_tag_page(label: str, posts: Iterable[IndexPost]) -> str:
         A page of links to those posts.
     """
     items = [_list_item(post, absolute=True) for post in posts]
-    main = (
-        f"<p>Posts with this tag</p><ul>{''.join(items)}</ul>"
-    )
+    main = f"<p>Posts with this tag</p><ul>{''.join(items)}</ul>"
     return render_page(label, main)
 
 
@@ -311,7 +349,7 @@ def _list_item(post: IndexPost, absolute: bool) -> str:
 
     Args:
         post: Post fields for the list row.
-        absolute: When True, post hrefs start with ``/posts/``.
+        absolute: When True, post hrefs are root-absolute under base.
 
     Returns:
         An ``<li>`` element.
@@ -319,15 +357,15 @@ def _list_item(post: IndexPost, absolute: bool) -> str:
     safe_title = html.escape(post.title)
     safe_slug = html.escape(post.slug)
     href = (
-        f"/posts/{safe_slug}.html" if absolute else f"posts/{safe_slug}.html"
+        _href(f"/posts/{safe_slug}.html")
+        if absolute
+        else f"posts/{safe_slug}.html"
     )
     date = html.escape(str(getattr(post, "date", "") or ""))
     summary = html.escape(str(getattr(post, "summary", "") or ""))
     date_line = f"<p>{date}</p>" if date else ""
     dek = f"<p>{summary}</p>" if summary else ""
-    return (
-        f'<li><a href="{href}">{safe_title}</a>{date_line}{dek}</li>'
-    )
+    return f'<li><a href="{href}">{safe_title}</a>{date_line}{dek}</li>'
 
 
 def _tag_links(post: ArticlePost) -> str:
@@ -345,7 +383,8 @@ def _tag_links(post: ArticlePost) -> str:
         if not slug:
             continue
         links.append(
-            f'<a href="/tags/{slug}.html">{html.escape(str(tag))}</a>'
+            f'<a href="{_href(f"/tags/{slug}.html")}">'
+            f"{html.escape(str(tag))}</a>"
         )
     if not links:
         return ""
@@ -376,12 +415,12 @@ def _series_chrome(post: ArticlePost) -> str:
     nav: list[str] = []
     if prev_slug and prev_title:
         nav.append(
-            f'<a href="/posts/{html.escape(prev_slug)}.html">'
+            f'<a href="{_href(f"/posts/{html.escape(prev_slug)}.html")}">'
             f"Previous: {html.escape(prev_title)}</a>"
         )
     if next_slug and next_title:
         nav.append(
-            f'<a href="/posts/{html.escape(next_slug)}.html">'
+            f'<a href="{_href(f"/posts/{html.escape(next_slug)}.html")}">'
             f"Next: {html.escape(next_title)}</a>"
         )
     if nav:
@@ -412,6 +451,6 @@ def render_not_found() -> str:
     main = (
         f"<h1>{message}</h1>"
         "<p>That URL is not in the local preview.</p>"
-        '<p><a href="/">Back to Home</a></p>'
+        f'<p><a href="{_href("/")}">Back to Home</a></p>'
     )
     return _document(message, main)

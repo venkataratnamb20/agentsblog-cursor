@@ -21,6 +21,7 @@ from agentsblog.render import (
     render_search,
     render_subscribe,
     render_tag_page,
+    set_base_path,
 )
 from agentsblog.seo import render_robots, render_sitemap
 from agentsblog.tags import tag_groups
@@ -135,6 +136,7 @@ def build_site(
     site_url: str = _DEFAULT_SITE_URL,
     include_drafts: bool = False,
     noindex: bool = False,
+    base_path: str = "",
 ) -> None:
     """Write the static site for one content directory.
 
@@ -150,7 +152,9 @@ def build_site(
             the sitemap. Defaults to the local preview origin.
         include_drafts: When True, draft posts are written and listed.
         noindex: When True, robots and meta tags discourage indexing.
+        base_path: Prefix for root-absolute links (GitHub project Pages).
     """
+    set_base_path(base_path)
     posts = _load_posts(content_dir)
     visible = _visible(posts, include_drafts=include_drafts)
     _prepare_output(output_dir)
@@ -182,6 +186,7 @@ def main() -> int:
     - ``AGENTSBLOG_SITE_URL``: Absolute origin for canonicals and feeds.
     - ``AGENTSBLOG_INCLUDE_DRAFTS``: ``1`` / ``true`` includes drafts.
     - ``AGENTSBLOG_NOINDEX``: ``1`` / ``true`` sets staging noindex.
+    - ``AGENTSBLOG_BASE_PATH``: Prefix for root-absolute links.
 
     Returns:
         Zero after the site has been written.
@@ -190,12 +195,14 @@ def main() -> int:
     site_url = os.environ.get("AGENTSBLOG_SITE_URL", _DEFAULT_SITE_URL)
     include_drafts = _env_flag("AGENTSBLOG_INCLUDE_DRAFTS")
     noindex = _env_flag("AGENTSBLOG_NOINDEX")
+    base_path = os.environ.get("AGENTSBLOG_BASE_PATH", "")
     build_site(
         repo_root / _CONTENT,
         repo_root / _OUTPUT,
         site_url=site_url,
         include_drafts=include_drafts,
         noindex=noindex,
+        base_path=base_path,
     )
     return 0
 

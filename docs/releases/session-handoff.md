@@ -16,11 +16,16 @@ Branch: worktree under
 - Evidence: `docs/testing/m3-stage3.tdd.md`, `docs/governance/m3-checklist.md`.
 - Security review: PASS.
 
+## Live staging (verified)
+
+- URL: https://venkataratnamb20.github.io/agentsblog-cursor/
+- CI + CD green on `develop` (`3ce5cfa`)
+- Posts 1–3 drafts listed; `robots.txt` is `Disallow: /`
+
 ## Next
 
-- Enable GitHub Pages (Source: GitHub Actions) on the remote if not already.
-- Merge to `develop` so staging CD runs.
 - Stage 4 quality gates (`m4-quality-gates-passed-go-for-launch`).
+- Fix project-Pages asset base paths if CSS/nav break under `/agentsblog-cursor/`.
 - Tech-edit post drafts; keep `draft: true` until Venkat approves publish.
 - Custom domain, DNS, production ship, email/analytics vendors still wait.
 

@@ -103,7 +103,7 @@ class TestTagPages(unittest.TestCase):
             post = (output / "posts" / "loop.html").read_text(encoding="utf-8")
             sitemap = (output / "sitemap.xml").read_text(encoding="utf-8")
         self.assertIn("The loop", agents)
-        self.assertIn('href="/posts/loop.html"', agents)
+        self.assertIn("posts/loop.html", agents)
         self.assertNotIn("Secret draft", agents)
         self.assertIn("The loop", memory)
         self.assertFalse((output / "tags" / "hidden-topic.html").exists())
