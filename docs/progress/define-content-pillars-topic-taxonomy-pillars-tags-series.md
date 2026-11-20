@@ -2,14 +2,12 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `docs/product/content-pillars.md` (file) exists.
+- `docs/product/content-pillars.md` — five pillars (Foundations, Building, Evaluation, Safety, Operations), tags, and series aligned to `docs/product/topic-backlog.md` and `docs/editorial/calendar-2026-q1.md`. No post published.
 
 ## Remaining
 
-- Pillars, tags, and series are proposed. No post is published. Series have no URLs yet.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+- none

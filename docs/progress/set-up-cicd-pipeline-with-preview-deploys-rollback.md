@@ -2,15 +2,16 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `.github/workflows/ci.yml` (file) exists.
-- `.github/workflows/cd.yml` (file) exists.
+- `.github/workflows/ci.yml` — unittest + local build on push/PR
+- `.github/workflows/cd.yml` — `develop` → GitHub Pages staging (drafts + noindex); `main` → production package artifact
+- `docs/adr/0003-github-pages-hosting.md`
+- `tests/unit/test_ci.py`
+- Rollback: redeploy a prior successful `develop` commit / Pages deployment
 
 ## Remaining
 
-- Venkat has not approved closing this task.
-- Preview deploys and rollback wait on a hosting decision. The workflows package `build/` and do not publish the site.
-- Exit criteria are not met.
+none

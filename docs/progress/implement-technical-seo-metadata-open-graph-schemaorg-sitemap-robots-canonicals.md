@@ -1,15 +1,16 @@
-# Implement Technical SEO Metadata Open Graph schema.org Sitemap Robots Canonicals
+# Implement Technical SEO Metadata Open Graph Schemaorg Sitemap Robots Canonicals
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `src/agentsblog/seo.py` (file) exists.
+- `src/agentsblog/seo.py` — robots, sitemap, canonical, Open Graph, JSON-LD
+- Staging noindex via `AGENTSBLOG_NOINDEX` / `render_robots(..., noindex=True)`
+- `tests/unit/test_seo.py`
+- `tests/unit/test_staging_build.py`
 
 ## Remaining
 
-- The build writes robots.txt, a sitemap, canonical URLs, Open Graph tags, and schema.org data. The default origin is the local preview until a public host is chosen.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

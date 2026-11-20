@@ -2,15 +2,17 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `src/agentsblog/build.py` (file) exists.
-- `src/agentsblog/render.py` (file) exists.
+- `src/agentsblog/render.py` — shared chrome (nav, theme before main, footer), home/post/tag/about/subscribe/404 per wireframes
+- `src/agentsblog/build.py` — stylesheet with brand colours, dark theme, focus rings, responsive column
+- `tests/unit/test_wireframe_chrome.py`
+- `tests/unit/test_theme.py`
+- `tests/unit/test_responsive.py`
+- Design SoT: `docs/design/wireframes.md`, `docs/design/brand-identity.md`
 
 ## Remaining
 
-- Pages share one document, a narrow reading column, and a theme toggle that sets light or dark. A reviewed component set is not done.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

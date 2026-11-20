@@ -2,12 +2,15 @@
 
 ## Status
 
-Status: Not started
+Status: In progress
 
 ## Evidence
 
-none
+- `docs/testing/performance-budgets.md` (file) exists.
+- `tests/unit/test_performance_budgets.py` (file) exists.
 
 ## Remaining
 
-Performance budgets and Core Web Vitals have not been measured. The product site was not built.
+- Field Core Web Vitals are not measured. The public site is not live.
+- Venkat has not approved closing this task.
+- Exit criteria are not met.

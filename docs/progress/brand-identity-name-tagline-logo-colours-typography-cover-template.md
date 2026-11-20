@@ -2,14 +2,17 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `docs/design/brand-identity.md` (file) exists.
+- `docs/design/brand-identity.md` — name, tagline, audience, voice, colour pair
+  (`#f7f4ef` / `#1c1915`), focus/link tokens, Georgia typography, ~40rem
+  measure, home hierarchy (brand `h1` + tagline + optional pillar labels),
+  cover template, and Canva designs table.
+- Free Canva wordmark: https://canva.link/oxyabeh6l5e8ob5 (`DAHbfcx1QuE`)
+- Free Canva cover: https://canva.link/g38m5q8jonztu6a (`DAHbfb7CfD4`)
 
 ## Remaining
 
-- Name, tagline, colours, type, and a text cover template are written. No logo file was created. A paid logo waits on approval.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+None.

@@ -42,9 +42,9 @@ class TestSearchPage(unittest.TestCase):
         self.assertIn('lang="en"', page)
 
     def test_index_links_to_the_search_page(self) -> None:
-        """The index offers a way to open search."""
+        """The shared nav offers a way to open search."""
         page = render_index([])
-        self.assertIn('href="search.html"', page)
+        self.assertIn('href="/search.html"', page)
 
     def test_build_writes_the_search_page(self) -> None:
         """``build_site`` writes ``search.html`` beside the index."""

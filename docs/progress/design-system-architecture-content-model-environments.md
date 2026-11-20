@@ -2,14 +2,13 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
 - `docs/architecture/system.md` (file) exists.
+- `docs/architecture/system.md` documents local builder modules under `src/agentsblog/`, the markdown + front-matter content model, and environments (local preview active; staging and production undecided and gated).
 
 ## Remaining
 
-- The local pipeline, modules, content model, and environments are described. Staging and production are not provisioned.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

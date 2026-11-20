@@ -2,15 +2,15 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `src/agentsblog/search.py` (file) exists.
-- `src/agentsblog/render.py` (file) exists.
+- `src/agentsblog/search.py`
+- `src/agentsblog/render.py` — `search.html`, `404.html` with Back to Home
+- `tests/unit/test_search_page.py`
+- `tests/unit/test_wireframe_chrome.py`
 
 ## Remaining
 
-- The local preview has a search page and a 404 page. Drafts stay out of the search index. There is no public site.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

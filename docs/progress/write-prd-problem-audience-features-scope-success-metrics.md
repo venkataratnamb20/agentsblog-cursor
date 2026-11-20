@@ -2,14 +2,17 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `docs/product/prd.md` (file) exists.
+- `docs/product/prd.md` names problem, audience (AI engineers / researchers /
+  tech leads), in-scope local preview features aligned with the Python
+  stdlib builder, explicit out-of-scope and approval gates, and success
+  metrics split into measurable-now (local build, draft discipline) vs
+  not-measured-until-public-launch (published posts, subscribers, WCAG).
+  No claim of a published site or hosting.
 
 ## Remaining
 
-- The PRD names problem, audience, local features, approval-gated features, scope, and success metrics. Metrics are targets, not measured results. Hosting is undecided.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

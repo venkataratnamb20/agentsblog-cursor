@@ -2,15 +2,13 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `docs/security/threat-model.md` (file) exists.
-- `docs/security/requirements.md` (file) exists.
+- `docs/security/threat-model.md` — local-preview threat model: assets, trust boundaries (loopback, static root, same-origin inline scripts), OWASP-aligned XSS / supply-chain / secrets threats, draft exclusion, escaped Markdown bodies, no third-party scripts, auditor least privilege; hosting/TLS/newsletter out of scope; honest gap that CI does not secret-scan.
+- `docs/security/requirements.md` — SR-1 through SR-13 with check steps for loopback bind, draft omission, `html.escape` Markdown, no secrets in repo, stdlib-only build, approval gates, policy draft wording, local canonical URL, no remote scripts, localStorage-only consent, no accounts, read-only auditor roles, and preview path confinement; Still open lists no CI secret scan and no prod host.
 
 ## Remaining
 
-- The model covers the local preview: loopback bind, escaped post text, drafts kept out of the build, and approval gates. CI does not scan for secrets yet. A public host, TLS, and the full product requirements specification are still absent.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

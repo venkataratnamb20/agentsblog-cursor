@@ -2,14 +2,12 @@
 
 ## Status
 
-Status: In progress
+Status: Done
 
 ## Evidence
 
-- `docs/requirements/srs.md` (file) exists.
+- `docs/requirements/srs.md` — functional FR-1–FR-14 and non-functional NFR-1–NFR-6 for the local preview; checks match the Python stdlib builder; NFR-6 cites `docs/testing/performance-budgets.md`; NFR-4 targets WCAG 2.2 AA; NFR-3 forbids secrets in the repo.
 
 ## Remaining
 
-- Functional and non-functional requirements for the local preview are listed with checks. Hosting and newsletter requirements are out of scope until approved.
-- Venkat has not approved closing this task.
-- Exit criteria are not met.
+none

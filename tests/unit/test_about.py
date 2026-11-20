@@ -21,7 +21,7 @@ if str(_SRC) not in sys.path:
 
 from agentsblog.build import build_site  # noqa: E402
 
-_SUBSCRIBE = "subscribe is blocked until an email service is approved"
+_SUBSCRIBE = "Subscribe is blocked until an email service is approved"
 
 
 def _write(directory: Path, name: str, lines: list[str]) -> None:

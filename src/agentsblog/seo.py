@@ -10,16 +10,19 @@ LOCAL_SITE_URL = "http://127.0.0.1:8000"
 _DESCRIPTION = "A technical blog on AI agents."
 
 
-def render_robots(site_url: str) -> str:
-    """Render a robots file that allows the site.
+def render_robots(site_url: str, noindex: bool = False) -> str:
+    """Render a robots file for the site.
 
     Args:
         site_url: Absolute origin, with or without a trailing slash.
+        noindex: When True, disallow all crawlers (staging).
 
     Returns:
-        ``robots.txt`` contents, including the sitemap URL.
+        ``robots.txt`` contents, including the sitemap URL when allowed.
     """
     origin = site_url.rstrip("/")
+    if noindex:
+        return "User-agent: *\nDisallow: /\n"
     return f"User-agent: *\nAllow: /\n\nSitemap: {origin}/sitemap.xml\n"
 
 
@@ -43,11 +46,12 @@ def render_sitemap(locations: Iterable[str]) -> str:
     )
 
 
-def index_metadata(site_url: str) -> str:
+def index_metadata(site_url: str, noindex: bool = False) -> str:
     """Render canonical and Open Graph tags for the index.
 
     Args:
         site_url: Absolute origin.
+        noindex: When True, add a robots noindex meta tag.
 
     Returns:
         HTML elements for the document head. The text is escaped.
@@ -60,6 +64,7 @@ def index_metadata(site_url: str) -> str:
         kind="website",
         schema_type="Blog",
         date="",
+        noindex=noindex,
     )
 
 
@@ -69,6 +74,7 @@ def post_metadata(
     slug: str,
     date: str,
     site_url: str,
+    noindex: bool = False,
 ) -> str:
     """Render canonical, Open Graph, and BlogPosting metadata.
 
@@ -78,6 +84,7 @@ def post_metadata(
         slug: Post filename stem.
         date: Publication date, usually ``YYYY-MM-DD``.
         site_url: Absolute origin.
+        noindex: When True, add a robots noindex meta tag.
 
     Returns:
         HTML elements for the document head. The text is escaped.
@@ -90,6 +97,7 @@ def post_metadata(
         kind="article",
         schema_type="BlogPosting",
         date=date,
+        noindex=noindex,
     )
 
 
@@ -100,6 +108,7 @@ def _metadata(
     kind: str,
     schema_type: str,
     date: str,
+    noindex: bool = False,
 ) -> str:
     """Render the shared head elements for one page.
 
@@ -110,6 +119,7 @@ def _metadata(
         kind: Open Graph type, such as ``website`` or ``article``.
         schema_type: schema.org type name.
         date: Publication date. Empty omits ``datePublished``.
+        noindex: When True, ask crawlers not to index the page.
 
     Returns:
         Escaped HTML for the document head.
@@ -118,12 +128,16 @@ def _metadata(
     safe_description = html.escape(description, quote=True)
     safe_url = html.escape(canonical, quote=True)
     schema = _schema(schema_type, title, description, canonical, date)
+    robots = (
+        '<meta name="robots" content="noindex, nofollow">' if noindex else ""
+    )
     return (
         f'<link rel="canonical" href="{safe_url}">'
         f'<meta name="description" content="{safe_description}">'
         f'<meta property="og:title" content="{safe_title}">'
         f'<meta property="og:type" content="{html.escape(kind, quote=True)}">'
         f'<meta property="og:url" content="{safe_url}">'
+        f"{robots}"
         f'<script type="application/ld+json">{schema}</script>'
     )
 

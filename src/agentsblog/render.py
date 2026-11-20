@@ -6,18 +6,13 @@ import html
 from collections.abc import Iterable
 from typing import Protocol
 
+from agentsblog.consent import consent_markup
 from agentsblog.markdown import render_markdown
 from agentsblog.seo import LOCAL_SITE_URL, index_metadata, post_metadata
 from agentsblog.tags import tag_slug
 
-
-class IndexPost(Protocol):
-    """Fields the index reads from a post."""
-
-    title: str
-    slug: str
-    draft: bool
-
+_TAGLINE = "Clear writing for people who build AI agents."
+_PILLARS = ("Foundations", "Building", "Evaluation", "Safety", "Operations")
 
 _NAV = (
     '<nav><a href="/">Home</a> '
@@ -27,15 +22,30 @@ _NAV = (
     '<a href="/privacy.html">Privacy</a></nav>'
 )
 
+_FOOTER = (
+    "<footer>"
+    '<a href="/cookies.html">Cookies</a> | '
+    '<a href="/terms.html">Terms</a> | '
+    '<a href="/licences.html">Licences</a> | '
+    '<a href="/ai-assistance.html">AI assistance</a>'
+    "</footer>"
+)
+
+_THEME_TOGGLE = (
+    '<button id="theme-toggle" type="button" aria-pressed="false">'
+    "Toggle theme</button>"
+)
 
 _FEED_LINK = (
     '<link rel="alternate" type="application/rss+xml" '
     'href="/feed.xml" title="Agents Blog">'
 )
 
-
 _SKIP_LINK = '<a class="skip-link" href="#main">Skip to content</a>'
 
+_VIEWPORT = (
+    '<meta name="viewport" content="width=device-width, initial-scale=1">'
+)
 
 _THEME_SCRIPT = """\
 <script>
@@ -56,6 +66,16 @@ _THEME_SCRIPT = """\
 """
 
 
+class IndexPost(Protocol):
+    """Fields the index reads from a post."""
+
+    title: str
+    slug: str
+    draft: bool
+    date: str
+    summary: str
+
+
 class ArticlePost(Protocol):
     """Fields a single post page reads from a post."""
 
@@ -63,7 +83,11 @@ class ArticlePost(Protocol):
     body: str
 
 
-def _document(title: str, main: str, head: str = "") -> str:
+def _document(
+    title: str,
+    main: str,
+    head: str = "",
+) -> str:
     """Wrap a page title and main content in the shared document.
 
     Args:
@@ -79,6 +103,7 @@ def _document(title: str, main: str, head: str = "") -> str:
         '<html lang="en">'
         "<head>"
         '<meta charset="utf-8">'
+        f"{_VIEWPORT}"
         f"<title>{title}</title>"
         '<link rel="stylesheet" href="/assets/site.css">'
         f"{_FEED_LINK}"
@@ -86,10 +111,11 @@ def _document(title: str, main: str, head: str = "") -> str:
         "</head>"
         "<body>"
         f"{_SKIP_LINK}"
+        f"{consent_markup()}"
         f"{_NAV}"
+        f"{_THEME_TOGGLE}"
         f'<main id="main">{main}</main>'
-        '<button id="theme-toggle" type="button" aria-pressed="false">'
-        "Toggle theme</button>"
+        f"{_FOOTER}"
         f"{_THEME_SCRIPT}"
         "</body>"
         "</html>"
@@ -121,14 +147,16 @@ def render_search() -> str:
 def render_index(
     posts: Iterable[IndexPost],
     site_url: str = LOCAL_SITE_URL,
+    noindex: bool = False,
 ) -> str:
     """Render the index of published posts.
 
     Args:
-        posts: Posts that expose title, slug, and draft. Only posts
-            whose draft flag is false are listed. Each published title
-            links to ``posts/{slug}.html``.
+        posts: Posts that expose title, slug, date, summary, and draft.
+            Only posts whose draft flag is false are listed unless the
+            caller already filtered the list.
         site_url: Absolute origin used for the canonical URL.
+        noindex: When True, ask crawlers not to index the page.
 
     Returns:
         The index document as HTML.
@@ -137,34 +165,45 @@ def render_index(
     for post in posts:
         if post.draft:
             continue
-        safe_title = html.escape(post.title)
-        safe_slug = html.escape(post.slug)
-        items.append(
-            f'<li><a href="posts/{safe_slug}.html">{safe_title}</a></li>'
-        )
+        items.append(_list_item(post, absolute=False))
     listing = "<ul>" + "".join(items) + "</ul>"
-    search_link = '<p><a href="search.html">Search</a></p>'
+    pillars = " · ".join(html.escape(name) for name in _PILLARS)
+    main = (
+        "<h1>Agents Blog</h1>"
+        f"<p>{html.escape(_TAGLINE)}</p>"
+        f"<p>{pillars}</p>"
+        "<h2>Posts</h2>"
+        f"{listing}"
+    )
     return _document(
         "Agents Blog",
-        search_link + listing,
-        head=index_metadata(site_url),
+        main,
+        head=index_metadata(site_url, noindex=noindex),
     )
 
 
-def render_post(post: ArticlePost, site_url: str = LOCAL_SITE_URL) -> str:
+def render_post(
+    post: ArticlePost,
+    site_url: str = LOCAL_SITE_URL,
+    noindex: bool = False,
+) -> str:
     """Render one post as an HTML page.
 
     Args:
         post: Post whose title becomes the heading and whose body is
             shown as text. ``<`` and ``&`` in both fields are escaped.
         site_url: Absolute origin used for the canonical URL.
+        noindex: When True, ask crawlers not to index the page.
 
     Returns:
         The post document as HTML.
     """
     safe_title = html.escape(post.title)
+    date = html.escape(str(getattr(post, "date", "") or ""))
+    published = f"<p>Published: {date}</p>" if date else ""
     content = (
-        f"<article><h1>{safe_title}</h1>{_tag_links(post)}"
+        f"<article><h1>{safe_title}</h1>{published}"
+        f"{_tag_links(post)}{_series_chrome(post)}"
         f"{render_markdown(post.body)}</article>"
     )
     metadata = post_metadata(
@@ -173,6 +212,7 @@ def render_post(post: ArticlePost, site_url: str = LOCAL_SITE_URL) -> str:
         slug=getattr(post, "slug", ""),
         date=getattr(post, "date", ""),
         site_url=site_url,
+        noindex=noindex,
     )
     return _document(safe_title, content, head=metadata)
 
@@ -227,7 +267,9 @@ def render_about() -> str:
     main = (
         "<p>Agents Blog is a technical blog on AI agents for "
         "engineers, researchers, and tech leads.</p>"
-        "<p>The public site is not live.</p>"
+        f"<p>{html.escape(_TAGLINE)}</p>"
+        "<p>The public site is not live. This page is for the local "
+        "preview.</p>"
     )
     return render_page("About", main)
 
@@ -238,8 +280,13 @@ def render_subscribe() -> str:
     Returns:
         HTML that says signup waits on an approved email service.
     """
-    sentence = "subscribe is blocked until an email service is approved."
-    return render_page("Subscribe", f"<p>{html.escape(sentence)}</p>")
+    main = (
+        "<p>Subscribe is blocked until an email service is approved.</p>"
+        "<p>There is no signup form on this page. Check back after "
+        "Venkat approves an email provider.</p>"
+        '<p>RSS: <a href="/feed.xml">/feed.xml</a></p>'
+    )
+    return render_page("Subscribe", main)
 
 
 def render_tag_page(label: str, posts: Iterable[IndexPost]) -> str:
@@ -252,13 +299,35 @@ def render_tag_page(label: str, posts: Iterable[IndexPost]) -> str:
     Returns:
         A page of links to those posts.
     """
-    items = [
-        "<li>"
-        f'<a href="/posts/{html.escape(post.slug)}.html">'
-        f"{html.escape(post.title)}</a></li>"
-        for post in posts
-    ]
-    return render_page(label, "<ul>" + "".join(items) + "</ul>")
+    items = [_list_item(post, absolute=True) for post in posts]
+    main = (
+        f"<p>Posts with this tag</p><ul>{''.join(items)}</ul>"
+    )
+    return render_page(label, main)
+
+
+def _list_item(post: IndexPost, absolute: bool) -> str:
+    """Render one post list entry with title, date, and dek.
+
+    Args:
+        post: Post fields for the list row.
+        absolute: When True, post hrefs start with ``/posts/``.
+
+    Returns:
+        An ``<li>`` element.
+    """
+    safe_title = html.escape(post.title)
+    safe_slug = html.escape(post.slug)
+    href = (
+        f"/posts/{safe_slug}.html" if absolute else f"posts/{safe_slug}.html"
+    )
+    date = html.escape(str(getattr(post, "date", "") or ""))
+    summary = html.escape(str(getattr(post, "summary", "") or ""))
+    date_line = f"<p>{date}</p>" if date else ""
+    dek = f"<p>{summary}</p>" if summary else ""
+    return (
+        f'<li><a href="{href}">{safe_title}</a>{date_line}{dek}</li>'
+    )
 
 
 def _tag_links(post: ArticlePost) -> str:
@@ -280,7 +349,44 @@ def _tag_links(post: ArticlePost) -> str:
         )
     if not links:
         return ""
-    return "<p>" + " ".join(links) + "</p>"
+    return "<p>Tags: " + " · ".join(links) + "</p>"
+
+
+def _series_chrome(post: ArticlePost) -> str:
+    """Render series navigation when series metadata is present.
+
+    Args:
+        post: Post that may expose series fields.
+
+    Returns:
+        Series chrome HTML, or an empty string.
+    """
+    series = str(getattr(post, "series", "") or "").strip()
+    part = int(getattr(post, "series_part", 0) or 0)
+    total = int(getattr(post, "series_total", 0) or 0)
+    if not series or part <= 0 or total <= 0:
+        return ""
+    lines = [
+        f"<p>Part {part} of {total} · {html.escape(series)}</p>",
+    ]
+    prev_slug = str(getattr(post, "series_prev_slug", "") or "")
+    prev_title = str(getattr(post, "series_prev_title", "") or "")
+    next_slug = str(getattr(post, "series_next_slug", "") or "")
+    next_title = str(getattr(post, "series_next_title", "") or "")
+    nav: list[str] = []
+    if prev_slug and prev_title:
+        nav.append(
+            f'<a href="/posts/{html.escape(prev_slug)}.html">'
+            f"Previous: {html.escape(prev_title)}</a>"
+        )
+    if next_slug and next_title:
+        nav.append(
+            f'<a href="/posts/{html.escape(next_slug)}.html">'
+            f"Next: {html.escape(next_title)}</a>"
+        )
+    if nav:
+        lines.append("<p>" + " ".join(nav) + "</p>")
+    return "".join(lines)
 
 
 def render_page(title: str, main: str) -> str:
@@ -303,4 +409,9 @@ def render_not_found() -> str:
         HTML that tells the reader the page was not found.
     """
     message = html.escape("Page not found")
-    return _document(message, f"<h1>{message}</h1>")
+    main = (
+        f"<h1>{message}</h1>"
+        "<p>That URL is not in the local preview.</p>"
+        '<p><a href="/">Back to Home</a></p>'
+    )
+    return _document(message, main)
